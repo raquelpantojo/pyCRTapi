@@ -19,8 +19,8 @@ def process_video(video_path):
     pycrtincert = pcrt.pCRT[1].__round__(2) 
     
     # Save the values to the txt file
-    result_txt_path = "runs/detect/processed_result.txt"
-    with open(result_txt_path, 'w') as file:
-        file.write(f'pCRT: {pycrtvalue}, incerteza: {pycrtincert}')
+    #result_txt_path = "runs/detect/processed_result.txt"
+    #with open(result_txt_path, 'w') as file:
+    #    file.write(f'pCRT: {pycrtvalue}, incerteza: {pycrtincert}')
 
     return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
