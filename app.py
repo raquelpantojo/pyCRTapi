@@ -130,8 +130,8 @@ st.markdown(
 )
 
 st.sidebar.write("Desenvolvido por:")
-st.sidebar.image("Imagens_logo\\logo_lab.png", use_column_width=True, width=150)
-st.sidebar.image("Imagens_logo\\logo_usp.png", use_column_width=True, width=150)
+st.sidebar.image("logo_lab.png", use_column_width=True, width=150)
+st.sidebar.image("logo_usp.png", use_column_width=True, width=150)
 
 # Adicionar um link no sidebar
 st.sidebar.markdown(
