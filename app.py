@@ -50,11 +50,11 @@ def capturar_video(camera_index):
     cv2.destroyAllWindows()
 
 # Título do aplicativo
-st.title("Captura de Vídeo da Câmera")
+#st.title("Captura de Vídeo da Câmera")
 
 # Botões para capturar vídeo de diferentes câmeras
-st.button("Capturar da Câmera Padrão (0)", key="camera0")
-st.button("Capturar de Outra Câmera (1)", key="camera1")
+#st.button("Capturar da Câmera Padrão (0)", key="camera0")
+#st.button("Capturar de Outra Câmera (1)", key="camera1")
 
 # Verifica qual botão foi pressionado e chama a função correspondente
 if st.session_state.camera0:
@@ -138,7 +138,7 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 if opcao == "Fazer um video":
     img_file_buffer = st.camera_input("Fazer um video")
     if img_file_buffer is not None:
-        st.image(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
+        st.video(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
         # Você pode processar a imagem aqui se necessário.
 
 else:
