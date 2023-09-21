@@ -53,8 +53,8 @@ def capturar_video(camera_index):
 #st.title("Captura de Vídeo da Câmera")
 
 # Botões para capturar vídeo de diferentes câmeras
-#st.button("Capturar da Câmera Padrão (0)", key="camera0")
-#st.button("Capturar de Outra Câmera (1)", key="camera1")
+st.button("Capturar da Câmera Padrão (0)", key="camera0")
+st.button("Capturar de Outra Câmera (1)", key="camera1")
 
 # Verifica qual botão foi pressionado e chama a função correspondente
 if st.session_state.camera0:
