@@ -1,3 +1,9 @@
+"""
+atualizado dia 21-09 
+
+
+"""
+
 import streamlit as st
 import os
 import cv2
@@ -10,28 +16,42 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 
 
-# Função para capturar a imagem da webcam
-def capturar_imagem():
-    cap = cv2.VideoCapture(0)  # 0 representa a câmera padrão (geralmente a webcam)
+# Função para capturar um vídeo da webcam e salvá-lo
+def capturar_video(camera_index):
+    cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
-        st.error("Não foi possível acessar a webcam.")
+        st.error(f"Não foi possível acessar a câmera {camera_index}.")
         return
 
-    st.write("Pressione o botão para capturar uma imagem da webcam")
-    if st.button("Capturar"):
-        ret, frame = cap.read()
-        if ret:
-            # Exibe a imagem capturada
-            st.image(frame, channels="BGR", use_column_width=True, caption="Imagem Capturada")
-            # Salva a imagem capturada em um arquivo (opcional)
-            cv2.imwrite("imagem_capturada.jpg", frame)
-        else:
-            st.error("Não foi possível capturar a imagem.")
+    # Defina as configurações para a gravação de vídeo
+    width, height = int(cap.get(3)), int(cap.get(4))
+    frame_rate = 30  # Taxa de quadros do vídeo (você pode ajustar conforme necessário)
+    
+    # Defina o codec de vídeo e crie o objeto VideoWriter
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
+    output_filename = os.path.expanduser(f"~/video_capturado_camera_{camera_index}.avi")  # Caminho para salvar o vídeo
+    
+    out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
+    
+    st.write(f"Pressione o botão para começar a gravar da câmera {camera_index}")
+    if st.button(f"Iniciar gravação da câmera {camera_index}"):
+        while True:
+            ret, frame = cap.read()
+            if ret:
+                out.write(frame)  # Escreve o quadro no arquivo de vídeo
+                cv2.imshow('Gravação de vídeo', frame)
+            else:
+                st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
+                break
 
-        cap.release()
+    # Libera os recursos
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
 
-capturar_imagem()
+capturar_video(0)    
+capturar_video(1)  # Captura de outra câmera, se disponível (pode variar dependendo do sistema)
 
 
 
@@ -104,10 +124,10 @@ def verifica_imagens_de_pele(video):
 st.title("Detecção de pyCRT")
 st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 
-opcao = st.radio("Selecione uma opção:", ("Tirar uma Foto da Câmera", "Enviar Vídeo Existente"))
+opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
 if opcao == "Fazer um video":
-    img_file_buffer = st.camera_input("Tirar uma foto")
+    img_file_buffer = st.camera_input("Fazer um video")
     if img_file_buffer is not None:
         st.image(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
         # Você pode processar a imagem aqui se necessário.
@@ -122,6 +142,7 @@ else:
         if tem_pele:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
+            st.image(mascara_final,channels="BGR", use_column_width=True, caption="Imagem Mascara")
 
             st.write("Processando vídeo...")
             processed_data = process_video(video_path)  # Processar o vídeo
