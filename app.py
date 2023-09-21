@@ -135,12 +135,22 @@ st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
-if opcao == "Fazer um video":
-    img_file_buffer = st.camera_input("Fazer um video")
-    if img_file_buffer is not None:
-        camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
-        capturar_video(camera_index)  # Chame a função para capturar o vídeo
+#if opcao == "Fazer um video":
+#    img_file_buffer = st.camera_input("Fazer um video")
+ #   if img_file_buffer is not None:
+#        camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
+#        capturar_video(camera_index)  # Chame a função para capturar o vídeo
         #st.video(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
+
+if opcao == "Fazer um video":
+    camera_index = st.selectbox("Selecione a câmera:", (0, 1))  # Pode escolher entre diferentes câmeras
+    output_filename = f"video_capturado_camera_{camera_index}.avi"
+    
+    if st.button("Iniciar Gravação"):
+        capturar_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
+
+        # Após a gravação, exiba o vídeo gravado
+        st.video(output_filename)
 
 
     #if opcao == "Capturar Vídeo da Câmera":
