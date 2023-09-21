@@ -143,7 +143,7 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
         #st.video(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
 
 if opcao == "Fazer um video":
-    camera_index = st.selectbox("Selecione a câmera:", (0, 1))  # Pode escolher entre diferentes câmeras
+    camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
     output_filename = f"video_capturado_camera_{camera_index}.avi"
     
     if st.button("Iniciar Gravação"):
