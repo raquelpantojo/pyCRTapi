@@ -9,7 +9,6 @@ import os
 import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
-from aiortc.contrib.media import MediaPlayer # permissão da camera 
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
