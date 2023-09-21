@@ -131,6 +131,7 @@ if opcao == "Fazer um video":
     if img_file_buffer is not None:
         st.image(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
         # Você pode processar a imagem aqui se necessário.
+
 else:
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
     if uploaded_file is not None:
@@ -142,7 +143,6 @@ else:
         if tem_pele:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
-            st.image(mascara_final,channels="BGR", use_column_width=True, caption="Imagem Mascara")
 
             st.write("Processando vídeo...")
             processed_data = process_video(video_path)  # Processar o vídeo
