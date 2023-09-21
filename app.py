@@ -9,7 +9,7 @@ import os
 import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
-
+from aiortc.contrib.media import MediaPlayer # permissão da camera 
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
@@ -50,8 +50,18 @@ def capturar_video(camera_index):
     out.release()
     cv2.destroyAllWindows()
 
-capturar_video(0)    
-capturar_video(1)  # Captura de outra câmera, se disponível (pode variar dependendo do sistema)
+# Título do aplicativo
+st.title("Captura de Vídeo da Câmera")
+
+# Botões para capturar vídeo de diferentes câmeras
+st.button("Capturar da Câmera Padrão (0)", key="camera0")
+st.button("Capturar de Outra Câmera (1)", key="camera1")
+
+# Verifica qual botão foi pressionado e chama a função correspondente
+if st.session_state.camera0:
+    capturar_video(0)
+if st.session_state.camera1:
+    capturar_video(1)
 
 
 

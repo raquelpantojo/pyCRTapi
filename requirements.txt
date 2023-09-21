@@ -2,6 +2,9 @@ pandas
 seaborn
 matplotlib
 streamlit
+streamlit-webrtc
+aiortc
 pyCRT==2.0.3
 opencv-python-headless
 opencv_contrib_python
+
