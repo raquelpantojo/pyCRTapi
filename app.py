@@ -53,14 +53,14 @@ def capturar_video(camera_index):
 #st.title("Captura de Vídeo da Câmera")
 
 # Botões para capturar vídeo de diferentes câmeras
-st.button("Capturar da Câmera Padrão (0)", key="camera0")
-st.button("Capturar de Outra Câmera (1)", key="camera1")
+#st.button("Capturar da Câmera Padrão (0)", key="camera0")
+#st.button("Capturar de Outra Câmera (1)", key="camera1")
 
 # Verifica qual botão foi pressionado e chama a função correspondente
-if st.session_state.camera0:
-    capturar_video(0)
-if st.session_state.camera1:
-    capturar_video(1)
+#if st.session_state.camera0:
+#    capturar_video(0)
+#if st.session_state.camera1:
+#    capturar_video(1)
 
 
 
@@ -136,8 +136,13 @@ st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
 if opcao == "Fazer um video":
+    #img_file_buffer = st.camera_input("Fazer um video")
+    #if img_file_buffer is not None:
+    #    st.video(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
+
+
     if opcao == "Capturar Vídeo da Câmera":
-        camera_index = st.selectbox("Selecione a câmera:", (0, 1))  # Pode escolher entre diferentes câmeras
+        camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
         capturar_video(camera_index)  # Chame a função para capturar o vídeo
 
 else:
