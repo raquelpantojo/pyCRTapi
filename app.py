@@ -16,7 +16,7 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 
 # Função para capturar um vídeo da webcam e salvá-lo
-def capturar_video(camera_index):
+def capturar_video(camera_index,output_filename):
     cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
