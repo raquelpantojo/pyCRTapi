@@ -27,42 +27,45 @@ def capturar_video(camera_index,output_filename):
     width, height = int(cap.get(3)), int(cap.get(4))
     frame_rate = 30  # Taxa de quadros do vídeo (você pode ajustar conforme necessário)
     
-    # Defina o codec de vídeo e crie o objeto VideoWriter
+     # Defina o codec de vídeo e crie o objeto VideoWriter
     fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
-    output_filename = os.path.expanduser(f"~/video_capturado_camera_{camera_index}.avi")  # Caminho para salvar o vídeo
-    
     out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
     
-    st.write(f"Pressione o botão para começar a gravar da câmera {camera_index}")
-    if st.button(f"Iniciar gravação da câmera {camera_index}"):
-        while True:
-            ret, frame = cap.read()
-            if ret:
+    st.write(f"Pressione o botão 'Iniciar Gravação' para começar a gravar da câmera {camera_index}")
+    is_recording = False
+
+    while True:
+        ret, frame = cap.read()
+        if ret:
+            if is_recording:
                 out.write(frame)  # Escreve o quadro no arquivo de vídeo
                 cv2.imshow('Gravação de vídeo', frame)
-            else:
-                st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
-                break
+            
+            # Botão para iniciar e finalizar a gravação
+            if st.button("Iniciar Gravação" if not is_recording else "Finalizar Gravação"):
+                is_recording = not is_recording  # Inverte o estado da gravação
+                
+                if not is_recording:
+                    st.success(f"Gravação da câmera {camera_index} finalizada.")
+                    
+                    # Libera os recursos
+                    cap.release()
+                    out.release()
+                    cv2.destroyAllWindows()
+                    break
 
     # Libera os recursos
     cap.release()
-    out.release()
     cv2.destroyAllWindows()
 
-# Título do aplicativo
-#st.title("Captura de Vídeo da Câmera")
+# Interface do Streamlit
+st.title("Captura de Vídeo da Câmera")
 
 # Botões para capturar vídeo de diferentes câmeras
-#st.button("Capturar da Câmera Padrão (0)", key="camera0")
-#st.button("Capturar de Outra Câmera (1)", key="camera1")
-
-# Verifica qual botão foi pressionado e chama a função correspondente
-#if st.session_state.camera0:
-#    capturar_video(0)
-#if st.session_state.camera1:
-#    capturar_video(1)
-
-
+if st.button("Capturar da Câmera Padrão (0)"):
+    capturar_video(0, "video_capturado_camera_0.avi")
+if st.button("Capturar de Outra Câmera (1)"):
+    capturar_video(1, "video_capturado_camera_1.avi")
 
 # Função para verificar se há imagens de pele em um vídeo
 def verifica_imagens_de_pele(video):
