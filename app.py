@@ -17,7 +17,7 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 # Função para capturar um vídeo da webcam e salvá-lo
 def capturar_video(camera_index,output_filename):
-    cap = cv2.VideoCapture(camera_index,output_filename)
+    cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
         st.error(f"Não foi possível acessar a câmera {camera_index}.")
@@ -58,14 +58,6 @@ def capturar_video(camera_index,output_filename):
     cap.release()
     cv2.destroyAllWindows()
 
-# Interface do Streamlit
-st.title("Captura de Vídeo da Câmera")
-
-# Botões para capturar vídeo de diferentes câmeras
-if st.button("Capturar da Câmera Padrão (0)"):
-    capturar_video(0, "video_capturado_camera_0.avi")
-if st.button("Capturar de Outra Câmera (1)"):
-    capturar_video(1, "video_capturado_camera_1.avi")
 
 # Função para verificar se há imagens de pele em um vídeo
 def verifica_imagens_de_pele(video):
