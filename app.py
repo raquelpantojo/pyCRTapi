@@ -132,9 +132,17 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
 
 if opcao == "Fazer um video"and os.path.exists(output_filename):
+        cap = cv2.VideoCapture(camera_index)
+        if cap.isOpened():
+            ret, frame = cap.read()
+            if ret:
+                st.image(frame, channels="BGR", use_column_width=True)
+        cap.release()
+
+
         st.write("Vídeo Capturado:")
         st.video(output_filename)
-        
+
         if st.button("Iniciar Gravação", key=f"start_button_{camera_index}"):
             output_filename = f"video_capturado_camera_{camera_index}.avi"
             capturar_video(camera_index, output_filename)  # Inicie a gravação
