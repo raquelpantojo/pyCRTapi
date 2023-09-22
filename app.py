@@ -9,6 +9,8 @@ import os
 import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
+import threading
+
 
 # Configurar diretório de upload
 uploads_dir = "uploads"
@@ -16,36 +18,38 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 
 
-# Função para capturar um vídeo da webcam e salvá-lo
-def capturar_video(camera_index, output_filename):
-    cap = cv2.VideoCapture(int(camera_index))  # Converte o índice da câmera para inteiro
+def capture_video(camera_index):
+    cap = cv2.VideoCapture(camera_index)
+    stop_event = threading.Event()
     
-    if not cap.isOpened():
-        st.error(f"Não foi possível acessar a câmera {camera_index}.")
-        return
-
-    # Defina as configurações para a gravação de vídeo
-    width, height = int(cap.get(3)), int(cap.get(4))
-    frame_rate = 30  # Taxa de quadros do vídeo (você pode ajustar conforme necessário)
-    
-    # Defina o codec de vídeo e crie o objeto VideoWriter
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
-    out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
-    
-    recording = True  # Variável para rastrear se a gravação está em andamento
-
-    while recording:
+    while not stop_event.is_set():
         ret, frame = cap.read()
-        if ret:
-            out.write(frame)  # Escreve o quadro no arquivo de vídeo
-            cv2.imshow('Gravação de vídeo', frame)
-        else:
-            st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
+        if not ret:
+            st.error("Error capturing video.")
             break
+        
+        # Display the frame in Streamlit
+        st.image(frame, channels="BGR", use_column_width=True)
+    
+    cap.release()
 
-        # Verifique se o botão "Parar Gravação" foi pressionado
-        if st.button("Parar Gravação", key=f"stop_button_{camera_index}"):
-            recording = False
+# Streamlit app
+st.title("Video Capture Example")
+
+# Specify the camera index directly (e.g., 0 for the default camera)
+camera_index = 0  # You can change this to the desired camera index
+
+capture_button = st.button("Start Capture")
+
+if capture_button:
+    video_thread = threading.Thread(target=capture_video, args=(camera_index,))
+    video_thread.start()
+
+stop_button = st.button("Stop Capture")
+
+if stop_button:
+    # Set the stop event to stop video capture
+    stop_event.set
 
     # Libera os recursos
     cap.release()
