@@ -9,6 +9,7 @@ import os
 import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
+
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
@@ -16,11 +17,7 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 
 # Função para capturar um vídeo da webcam e salvá-lo
-def capturar_video(camera_index,output_filename):
-    if camera_index is None:
-        st.error("Selecione uma câmera válida.")
-        return
-    
+def capturar_video(camera_index):
     cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
@@ -31,36 +28,42 @@ def capturar_video(camera_index,output_filename):
     width, height = int(cap.get(3)), int(cap.get(4))
     frame_rate = 30  # Taxa de quadros do vídeo (você pode ajustar conforme necessário)
     
-     # Defina o codec de vídeo e crie o objeto VideoWriter
+    # Defina o codec de vídeo e crie o objeto VideoWriter
     fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
     out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
     
-    st.write(f"Pressione o botão 'Iniciar Gravação' para começar a gravar da câmera {camera_index}")
-    is_recording = False
+    recording = True  # Variável para rastrear se a gravação está em andamento
 
-    while True:
+    while recording:
         ret, frame = cap.read()
         if ret:
-            if is_recording:
-                out.write(frame)  # Escreve o quadro no arquivo de vídeo
-                cv2.imshow('Gravação de vídeo', frame)
-            
-            # Botão para iniciar e finalizar a gravação
-            if st.button("Iniciar Gravação" if not is_recording else "Finalizar Gravação"):
-                is_recording = not is_recording  # Inverte o estado da gravação
-                
-                if not is_recording:
-                    st.success(f"Gravação da câmera {camera_index} finalizada.")
-                    
-                    # Libera os recursos
-                    cap.release()
-                    out.release()
-                    cv2.destroyAllWindows()
-                    break
+            out.write(frame)  # Escreve o quadro no arquivo de vídeo
+            cv2.imshow('Gravação de vídeo', frame)
+        else:
+            st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
+            break
+
+        # Verifique se o botão "Parar Gravação" foi pressionado
+        if st.button("Parar Gravação"):
+            recording = False
 
     # Libera os recursos
     cap.release()
+    out.release()
     cv2.destroyAllWindows()
+
+# Título do aplicativo
+st.title("Captura de Vídeo da Câmera")
+
+# Escolha da câmera
+camera_index = st.selectbox("Selecione a câmera:", (0, 1))  # Pode escolher entre diferentes câmeras
+
+if st.button("Iniciar Gravação"):
+    output_filename = f"video_capturado_camera_{camera_index}.avi"
+    capturar_video(camera_index, output_filename)  # Inicie a gravação
+
+    # Após a gravação, exiba o vídeo gravado
+    st.video(output_filename)
 
 
 # Função para verificar se há imagens de pele em um vídeo
@@ -134,15 +137,10 @@ st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
-#if opcao == "Fazer um video":
-#    img_file_buffer = st.camera_input("Fazer um video")
- #   if img_file_buffer is not None:
-#        camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
-#        capturar_video(camera_index)  # Chame a função para capturar o vídeo
-        #st.video(img_file_buffer, use_column_width=True, caption="Imagem Capturada")
+camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
 
-if opcao == "Fazer um video":
-    camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
+# Verifique se camera_index não é None antes de chamar capturar_video
+if camera_index is not None:
     output_filename = f"video_capturado_camera_{camera_index}.avi"
     
     if st.button("Iniciar Gravação"):
@@ -150,11 +148,6 @@ if opcao == "Fazer um video":
 
         # Após a gravação, exiba o vídeo gravado
         st.video(output_filename)
-
-
-    #if opcao == "Capturar Vídeo da Câmera":
-    #    camera_index = st.camera_input("Fazer um video")  # Pode escolher entre diferentes câmeras
-   #     capturar_video(camera_index)  # Chame a função para capturar o vídeo
 
 else:
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
