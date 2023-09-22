@@ -128,15 +128,16 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 
 camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
 
-# Verifique se camera_index não é None antes de chamar capturar_video
-if camera_index is not None:
-    output_filename = f"video_capturado_camera_{camera_index}.avi"
-    
-    if st.button("Iniciar Gravação"):
-        capturar_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
+if opcao == "Fazer um video":
+        # Verifique se camera_index não é None antes de chamar capturar_video
+        if camera_index is not None:
+            output_filename = f"video_capturado_camera_{camera_index}.avi"
+            
+            if st.button("Iniciar Gravação"):
+                capturar_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
 
-        # Após a gravação, exiba o vídeo gravado
-        st.video(output_filename)
+                # Após a gravação, exiba o vídeo gravado
+                st.video(output_filename)
 
 else:
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
