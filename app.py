@@ -10,38 +10,43 @@ import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
 import threading
-from streamlit_webrtc import webrtc_streamer
-import av
+
 
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
-############################################################
+
+
 
 # Global variable for the stop event
 stop_event = threading.Event()
 
 # Function to capture video from the camera
-def capture_video(camera_index, output_filename):
+def capturar_video(camera_index, output_filename):
     cap = cv2.VideoCapture(camera_index)
-    frame_width = int(cap.get(3))
-    frame_height = int(cap.get(4))
     
-    # Define the codec and create a VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(output_filename, fourcc, 30.0, (frame_width, frame_height))
+    if not cap.isOpened():
+        st.error(f"Não foi possível acessar a câmera {camera_index}.")
+        return
+
+    # Defina as configurações para a gravação de vídeo
+    width, height = int(cap.get(3)), int(cap.get(4))
+    frame_rate = 30  # Taxa de quadros do vídeo (você pode ajustar conforme necessário)
+
+    # Defina o codec de vídeo e crie o objeto VideoWriter
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
+    out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
     
+    st.write(f"Pressione o botão para começar a gravar da câmera {camera_index}")
+
     while not stop_event.is_set():
         ret, frame = cap.read()
         if not ret:
-            st.error("Error capturing video.")
+            st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
             break
-        
-        # Display the frame in Streamlit
+
+        out.write(frame)  # Escreve o quadro no arquivo de vídeo
         st.image(frame, channels="BGR", use_column_width=True)
-        
-        # Write the frame to the video file
-        out.write(frame)
     
     cap.release()
     out.release()
@@ -49,8 +54,9 @@ def capture_video(camera_index, output_filename):
 # Streamlit app
 st.title("Video Capture and Display Example")
 
-# Specify the camera index directly (e.g., 0 for the default camera)
-camera_index = 0  # You can change this to the desired camera index
+# Dropdown para selecionar a câmera
+camera_options = st.video_input()
+camera_index = camera_options['camera']
 
 output_filename = "captured_video.avi"
 
@@ -70,7 +76,6 @@ if stop_button:
 if os.path.exists(output_filename):
     st.write("Captured Video:")
     st.video(output_filename)
-
 
 
 # Função para verificar se há imagens de pele em um vídeo
@@ -149,7 +154,7 @@ camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferen
 if opcao == "Fazer um video":
         if st.button("Iniciar Gravação", key=f"start_button_{camera_index}"):
             output_filename = f"video_capturado_camera_{camera_index}.avi"
-            capture_video(camera_index, output_filename)  # Inicie a gravação
+            capturar_video(camera_index, output_filename)  # Inicie a gravação
 
             # Após a gravação, exiba o vídeo gravado
             st.video(output_filename)
@@ -158,11 +163,10 @@ if opcao == "Fazer um video":
             output_filename = f"video_capturado_camera_{camera_index}.avi"
             
             if st.button("Iniciar Gravação"):
-                capture_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
+                capturar_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
 
                 # Após a gravação, exiba o vídeo gravado
                 st.video(output_filename)
-
 
 else:
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
@@ -196,14 +200,6 @@ else:
             st.video(video_path)
 
 
-
-
-
-# Interface do Streamlit
-st.title("Detecção de pyCRT")
-st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
-
-opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
 
 # Exibir os logos no rodapé com o texto "Desenvolvido por:" e fundo preto
