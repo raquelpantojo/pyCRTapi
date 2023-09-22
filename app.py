@@ -44,7 +44,7 @@ def capturar_video(camera_index):
             break
 
         # Verifique se o botão "Parar Gravação" foi pressionado
-        if st.button("Parar Gravação"):
+        if st.button("Parar Gravação", key=f"stop_button_{camera_index}"):
             recording = False
 
     # Libera os recursos
@@ -52,18 +52,7 @@ def capturar_video(camera_index):
     out.release()
     cv2.destroyAllWindows()
 
-# Título do aplicativo
-st.title("Captura de Vídeo da Câmera")
 
-# Escolha da câmera
-camera_index = st.selectbox("Selecione a câmera:", (0, 1))  # Pode escolher entre diferentes câmeras
-
-if st.button("Iniciar Gravação"):
-    output_filename = f"video_capturado_camera_{camera_index}.avi"
-    capturar_video(camera_index, output_filename)  # Inicie a gravação
-
-    # Após a gravação, exiba o vídeo gravado
-    st.video(output_filename)
 
 
 # Função para verificar se há imagens de pele em um vídeo
