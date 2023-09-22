@@ -21,6 +21,10 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 # Global variable for the stop event
 stop_event = threading.Event()
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+
+# Global variable for the stop event
+stop_event = threading.Event()
 
 # Function to capture video from the camera
 def capturar_video(camera_index, output_filename):
@@ -37,7 +41,12 @@ def capturar_video(camera_index, output_filename):
     # Defina o codec de vídeo e crie o objeto VideoWriter
     fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
     out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
-    
+
+    # Função para transformar o vídeo em tempo real
+    def transform(frame):
+        out.write(frame)
+        return frame
+
     st.write(f"Pressione o botão para começar a gravar da câmera {camera_index}")
 
     while not stop_event.is_set():
@@ -46,8 +55,8 @@ def capturar_video(camera_index, output_filename):
             st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
             break
 
-        out.write(frame)  # Escreve o quadro no arquivo de vídeo
-        st.image(frame, channels="BGR", use_column_width=True)
+        stframe = transform(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        st.image(stframe, channels="RGB", use_column_width=True)
     
     cap.release()
     out.release()
@@ -71,6 +80,9 @@ if start_button:
 if stop_button:
     # Set the stop event to stop video capture
     stop_event.set()
+
+# Widget para exibir o vídeo em tempo real
+webrtc_streamer(key="example", video_transformer=None, async_transform=True)
 
 
 # Display the captured video
