@@ -15,15 +15,20 @@ import threading
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
-
-
+############################################################
 
 # Global variable for the stop event
 stop_event = threading.Event()
 
 # Function to capture video from the camera
-def capture_video(camera_index):
+def capture_video(camera_index, output_filename):
     cap = cv2.VideoCapture(camera_index)
+    frame_width = int(cap.get(3))
+    frame_height = int(cap.get(4))
+    
+    # Define the codec and create a VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(output_filename, fourcc, 20.0, (frame_width, frame_height))
     
     while not stop_event.is_set():
         ret, frame = cap.read()
@@ -33,19 +38,25 @@ def capture_video(camera_index):
         
         # Display the frame in Streamlit
         st.image(frame, channels="BGR", use_column_width=True)
+        
+        # Write the frame to the video file
+        out.write(frame)
     
     cap.release()
+    out.release()
 
 # Streamlit app
-st.title("Video Capture Example")
+st.title("Video Capture and Display Example")
 
 # Specify the camera index directly (e.g., 0 for the default camera)
 camera_index = 0  # You can change this to the desired camera index
 
+output_filename = "captured_video.avi"
+
 capture_button = st.button("Start Capture")
 
 if capture_button:
-    video_thread = threading.Thread(target=capture_video, args=(camera_index,))
+    video_thread = threading.Thread(target=capture_video, args=(camera_index, output_filename))
     video_thread.start()
 
 stop_button = st.button("Stop Capture")
@@ -53,6 +64,11 @@ stop_button = st.button("Stop Capture")
 if stop_button:
     # Set the stop event to stop video capture
     stop_event.set()
+
+# Display the captured video
+if os.path.exists(output_filename):
+    st.write("Captured Video:")
+    st.video(output_filename)
 
 
 
