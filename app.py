@@ -30,44 +30,23 @@ def capturar_video(camera_index, output_filename):
         st.error(f"Não foi possível acessar a câmera {camera_index}.")
         return
 
-    # Defina as configurações para a gravação de vídeo
-    width, height = int(cap.get(3)), int(cap.get(4))
-    frame_rate = 30  # Taxa de quadros do vídeo (você pode ajustar conforme necessário)
-
-    # Defina o codec de vídeo e crie o objeto VideoWriter
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec de vídeo (no exemplo, está usando XVID)
-    out = cv2.VideoWriter(output_filename, fourcc, frame_rate, (width, height))
-    
-    st.write(f"Pressione o botão para começar a gravar da câmera {camera_index}")
-
-    while not stop_event.is_set():
-        ret, frame = cap.read()
-        if not ret:
-            st.error(f"Erro ao capturar vídeo da câmera {camera_index}.")
-            break
-
-        out.write(frame)  # Escreve o quadro no arquivo de vídeo
-        st.image(frame, channels="BGR", use_column_width=True)
-    
-    cap.release()
-    out.release()
+    # ... Restante do código de captura de vídeo ...
 
 # Streamlit app
 st.title("Video Capture and Display Example")
 
-# Dropdown para selecionar a câmera
-camera_options = st.video_input()
-camera_index = camera_options['camera']
+# Permitir que o usuário selecione uma câmera
+camera_index = st.number_input("Digite o índice da câmera:", min_value=0, step=1)
 
 output_filename = "captured_video.avi"
 
-capture_button = st.button("Start Capture")
+capture_button = st.button("Iniciar Captura")
 
 if capture_button:
-    video_thread = threading.Thread(target=capturar_video, args=(camera_index, output_filename))
+    video_thread = threading.Thread(target=capturar_video, args=(int(camera_index), output_filename))
     video_thread.start()
 
-stop_button = st.button("Stop Capture")
+stop_button = st.button("Parar Captura")
 
 if stop_button:
     # Set the stop event to stop video capture
