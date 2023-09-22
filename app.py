@@ -18,9 +18,12 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 
 
+# Global variable for the stop event
+stop_event = threading.Event()
+
+# Function to capture video from the camera
 def capture_video(camera_index):
     cap = cv2.VideoCapture(camera_index)
-    stop_event = threading.Event()
     
     while not stop_event.is_set():
         ret, frame = cap.read()
@@ -49,12 +52,7 @@ stop_button = st.button("Stop Capture")
 
 if stop_button:
     # Set the stop event to stop video capture
-    stop_event.set
-
-    # Libera os recursos
-    cap.release()
-    out.release()
-    cv2.destroyAllWindows()
+    stop_event.set()
 
 
 
