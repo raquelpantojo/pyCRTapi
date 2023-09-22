@@ -17,7 +17,7 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 
 # Função para capturar um vídeo da webcam e salvá-lo
-def capturar_video(camera_index):
+def capturar_video(camera_index,output_filename):
     cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
@@ -129,6 +129,12 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
 
 if opcao == "Fazer um video":
+        if st.button("Iniciar Gravação", key=f"start_button_{camera_index}"):
+            output_filename = f"video_capturado_camera_{camera_index}.avi"
+            capturar_video(camera_index, output_filename)  # Inicie a gravação
+
+            # Após a gravação, exiba o vídeo gravado
+            st.video(output_filename)
         # Verifique se camera_index não é None antes de chamar capturar_video
         if camera_index is not None:
             output_filename = f"video_capturado_camera_{camera_index}.avi"
