@@ -1,6 +1,7 @@
 """
 atualizado dia 21-09 
 
+dicas: https://github.com/whitphx/streamlit-webrtc
 
 """
 
@@ -63,7 +64,7 @@ output_filename = "captured_video.avi"
 capture_button = st.button("Start Capture")
 
 if capture_button:
-    video_thread = threading.Thread(target=capture_video, args=(camera_index, output_filename))
+    video_thread = threading.Thread(target=capturar_video, args=(camera_index, output_filename))
     video_thread.start()
 
 stop_button = st.button("Stop Capture")
