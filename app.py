@@ -73,7 +73,6 @@ if os.path.exists(output_filename):
 
 
 
-
 # Função para verificar se há imagens de pele em um vídeo
 def verifica_imagens_de_pele(video):
     cap = cv2.VideoCapture(video.name)
@@ -205,18 +204,6 @@ st.title("Detecção de pyCRT")
 st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
-
-# Componente Webrtc para captura de vídeo
-webrtc_streamer(
-    key="example",
-    video_frame_callback=video_frame_callback,
-    format="BGR",
-    fps=20,
-    key_is_down=None,
-)
-
-# ...
-
 
 
 # Exibir os logos no rodapé com o texto "Desenvolvido por:" e fundo preto
