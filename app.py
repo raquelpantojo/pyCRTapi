@@ -61,13 +61,14 @@ camera_index = st.number_input("Digite o índice da câmera:", min_value=0, step
 output_filename = "captured_video.avi"
 
 # Botões "Start" e "Stop" diretamente ao lado da câmera
-col1, col2 = st.beta_columns(2)
+start_button = st.button("Start")
+stop_button = st.button("Stop")
 
-if col1.button("Start"):
+if start_button:
     video_thread = threading.Thread(target=capturar_video, args=(int(camera_index), output_filename))
     video_thread.start()
 
-if col2.button("Stop"):
+if stop_button:
     # Set the stop event to stop video capture
     stop_event.set()
 
