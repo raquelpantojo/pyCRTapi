@@ -167,6 +167,7 @@ else:
             f.write(uploaded_file.read())  # Salva o arquivo enviado pelo usuário
         # Verifique as imagens de pele e processe o vídeo
         tem_pele, mascara_final, imagem_hsv, imagem_ycrcb = verifica_imagens_de_pele(uploaded_file)
+        
         if tem_pele:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
@@ -180,17 +181,33 @@ else:
             frame_number = 50  # Número do quadro desejado
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
-            if ret:
-                frame_ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
-                st.image(frame_ycrcb, channels="BGR", use_column_width=True, caption=f"Quadro {frame_number} em YCrCb")
-
             cap.release()
+            st.image(frame, caption="Imagem Original", use_column_width=True)
 
-        else:
-            st.write("Não foram encontradas imagens de pele.")
-            st.video(video_path)
+            # Caixa de seleção da ROI
+            st.write("Selecione a ROI arrastando e soltando o mouse sobre a imagem.")
+            roi = st.image(frame, use_column_width=True, key="roi_selection", clamp=(0, 0, image.shape[1], image.shape[0))
 
+            # Obtendo as coordenadas da ROI selecionada
+            roi_coords = roi.select_region()
 
+            if roi_coords:
+                x1, y1, x2, y2 = roi_coords
+                st.write(f"Coordenadas da ROI: ({x1}, {y1}) a ({x2}, {y2})")
+                
+                # Recortando a ROI da imagem original
+                roi_image = image[y1:y2, x1:x2]
+
+                # Exibindo a ROI recortada
+                st.image(roi_image, caption="ROI Selecionada", use_column_width=True)
+
+                    if ret:
+                        frame_ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
+                        st.image(frame_ycrcb, channels="BGR", use_column_width=True, caption=f"Quadro {frame_number} em YCrCb")
+
+                    
+
+        
 
 
 # Exibir os logos no rodapé com o texto "Desenvolvido por:" e fundo preto
