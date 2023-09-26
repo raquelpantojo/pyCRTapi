@@ -186,7 +186,7 @@ else:
 
             # Caixa de seleção da ROI
             st.write("Selecione a ROI arrastando e soltando o mouse sobre a imagem.")
-            roi = st.image(frame, use_column_width=True, key="roi_selection", clamp=(0, 0, image.shape[1], image.shape[0))
+            roi = st.image(frame, use_column_width=True, key="roi_selection", clamp=(0, 0, frame.shape[1], frame.shape[0]))
 
             # Obtendo as coordenadas da ROI selecionada
             roi_coords = roi.select_region()
@@ -196,17 +196,10 @@ else:
                 st.write(f"Coordenadas da ROI: ({x1}, {y1}) a ({x2}, {y2})")
                 
                 # Recortando a ROI da imagem original
-                roi_image = image[y1:y2, x1:x2]
+                roi_image = frame[y1:y2, x1:x2]
 
                 # Exibindo a ROI recortada
                 st.image(roi_image, caption="ROI Selecionada", use_column_width=True)
-
-                    if ret:
-                        frame_ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
-                        st.image(frame_ycrcb, channels="BGR", use_column_width=True, caption=f"Quadro {frame_number} em YCrCb")
-
-                    
-
         
 
 
