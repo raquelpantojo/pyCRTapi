@@ -18,8 +18,7 @@ from PIL import Image
 from io import BytesIO
 import base64
 
-
-import streamlit as st
+import moviepy.editor as mp
 
 # Define o layout da página
 st.set_page_config(
@@ -101,16 +100,13 @@ def fix_image(upload):
     st.write("Fixed Image :wrench:")
     st.image(fixed)
 
-    
 
+def fix_video(input_video_path, output_video_path):
+        video = mp.VideoFileClip(input_video_path)
+    video = video.fx(vfx.remove_color, [0, 0, 0], threshold=50)  # Remove o fundo preto
 
-
-
-
-
-
-
-
+    # Salvar o vídeo resultante
+    video.write_videofile(output_video_path, codec='libx264')
 
 
 
@@ -251,8 +247,10 @@ else:
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
             
-            # mostrar o video com o fundo removido:
-            fix_video(video_path)  # Chame a função para remover o fundo do vídeo
+            # Remover o fundo do vídeo
+            output_video_path = "video_com_fundo_removido.mp4"  # Especifique o caminho de saída desejado
+            fix_video(video_path, output_video_path)  # Chame a função para remover o fundo do vídeo
+
             st.write("Vídeo com fundo removido:")
             st.video(output_video_path)
                     
