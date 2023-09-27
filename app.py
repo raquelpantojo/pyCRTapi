@@ -95,7 +95,7 @@ def convert_image(img):
     return byte_im
 
 
-def fix_image(upload):
+def remove_image(upload):
     image = Image.open(upload, resample=Image.LANCZOS)
     #st.write("Original Image :camera:")
     #st.image(image)
@@ -244,7 +244,7 @@ else:
             
             # Remover o fundo do vídeo
             #output_video_path = "video_com_fundo_removido"  # Especifique o caminho de saída desejado
-            fix_video(video_path)  # Chame a função para remover o fundo do vídeo
+            remove_image(video_path)  # Chame a função para remover o fundo do vídeo
 
             #st.write("Vídeo com fundo removido:")
             #st.image(output_video_path)
