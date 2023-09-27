@@ -21,6 +21,16 @@ import base64
 
 import moviepy.editor as mp
 
+import subprocess
+
+# Instalação do MoviePy
+try:
+    import moviepy.editor as mp
+except ImportError:
+    subprocess.check_call(["pip", "install", "moviepy"])
+    import moviepy.editor as mp
+
+
 # Define o layout da página
 st.set_page_config(
     page_title="Cálculo do Tempo de Enchimento capilar",
