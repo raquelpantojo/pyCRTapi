@@ -23,39 +23,13 @@ os.makedirs(uploads_dir, exist_ok=True)
 stop_event = threading.Event()
 
 # Function to capture video from the camera
-def capturar_video(camera_index, output_filename):
+def capturar_video(camera_index):
     cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
         st.error(f"Não foi possível acessar a câmera {camera_index}.")
         return
 
-    # ... Restante do código de captura de vídeo ...
-
-# Streamlit app
-st.title("Video Capture and Display Example")
-
-# Permitir que o usuário selecione uma câmera
-camera_index = st.number_input("Digite o índice da câmera:", min_value=0, step=1)
-
-output_filename = "captured_video.avi"
-
-capture_button = st.button("Iniciar Captura")
-
-if capture_button:
-    video_thread = threading.Thread(target=capturar_video, args=(int(camera_index), output_filename))
-    video_thread.start()
-
-stop_button = st.button("Parar Captura")
-
-if stop_button:
-    # Set the stop event to stop video capture
-    stop_event.set()
-
-# Display the captured video
-if os.path.exists(output_filename):
-    st.write("Captured Video:")
-    st.video(output_filename)
 
 
 # Função para verificar se há imagens de pele em um vídeo
@@ -131,7 +105,7 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 
 camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
 
-if opcao == "Fazer um video"and os.path.exists(output_filename):
+if opcao == "Fazer um video":
         cap = cv2.VideoCapture(camera_index)
         if cap.isOpened():
             ret, frame = cap.read()
