@@ -19,16 +19,9 @@ from PIL import Image
 from io import BytesIO
 import base64
 
-import moviepy.editor as mp
 
 import subprocess
 
-# Instalação do MoviePy
-try:
-    import moviepy.editor as mp
-except ImportError:
-    subprocess.check_call(["pip", "install", "moviepy"])
-    import moviepy.editor as mp
 
 
 # Define o layout da página
@@ -104,21 +97,12 @@ def convert_image(img):
 
 def fix_image(upload):
     image = Image.open(upload, resample=Image.LANCZOS)
-    st.write("Original Image :camera:")
-    st.image(image)
+    #st.write("Original Image :camera:")
+    #st.image(image)
 
     fixed = remove(image)
-    st.write("Fixed Image :wrench:")
+    st.write("Imagem com Fundo Removido :wrench:")
     st.image(fixed)
-
-
-def fix_video(input_video_path, output_video_path):
-    video = mp.VideoFileClip(input_video_path)
-    video = video.fx(vfx.remove_color, [0, 0, 0], threshold=50)  # Remove o fundo preto
-
-    # Salvar o vídeo resultante
-    video.write_videofile(output_video_path, codec='libx264')
-
 
 
 
@@ -259,11 +243,11 @@ else:
             ret, frame = cap.read()
             
             # Remover o fundo do vídeo
-            output_video_path = "video_com_fundo_removido.mp4"  # Especifique o caminho de saída desejado
-            fix_video(video_path, output_video_path)  # Chame a função para remover o fundo do vídeo
+            #output_video_path = "video_com_fundo_removido"  # Especifique o caminho de saída desejado
+            fix_video(video_path)  # Chame a função para remover o fundo do vídeo
 
-            st.write("Vídeo com fundo removido:")
-            st.video(output_video_path)
+            #st.write("Vídeo com fundo removido:")
+            #st.image(output_video_path)
                     
             
         else:
