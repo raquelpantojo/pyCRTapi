@@ -103,7 +103,7 @@ def fix_image(upload):
 
 
 def fix_video(input_video_path, output_video_path):
-        video = mp.VideoFileClip(input_video_path)
+    video = mp.VideoFileClip(input_video_path)
     video = video.fx(vfx.remove_color, [0, 0, 0], threshold=50)  # Remove o fundo preto
 
     # Salvar o vídeo resultante
