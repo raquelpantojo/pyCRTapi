@@ -93,7 +93,7 @@ def convert_image(img):
 
 
 def fix_image(upload):
-    image = Image.open(upload)
+    image = Image.open(upload, resample=Image.LANCZOS)
     #st.write("Original Image :camera:")
     #st.image(image)
 
