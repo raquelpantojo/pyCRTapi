@@ -94,7 +94,7 @@ def convert_image(img):
     byte_im = buf.getvalue()
     return byte_im
 
-
+#Remover background
 def remove_image(upload):
     image = Image.open(upload, resample=Image.LANCZOS)
     #st.write("Original Image :camera:")
