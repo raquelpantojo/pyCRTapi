@@ -249,7 +249,11 @@ else:
             frame_number = 50  # Número do quadro desejado
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
-            fix_image(upload=frame)
+            
+            # Salve o quadro em um arquivo temporário
+            temp_frame_filename = "temp_frame.jpg"
+            cv2.imwrite(temp_frame_filename, frame)
+            fix_image(upload=temp_frame_filename)  # Passe o arquivo temporário para a função
             cap.release()
             
         else:
