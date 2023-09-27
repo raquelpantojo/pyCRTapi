@@ -2,6 +2,7 @@
 atualizado dia 21-09 
 
 dicas: https://github.com/whitphx/streamlit-webrtc
+https://bgremoval.streamlit.app/
 
 """
 
