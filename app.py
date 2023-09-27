@@ -1,5 +1,5 @@
 """
-atualizado dia 27-09 
+atualizado dia 21-09 
 
 dicas: https://github.com/whitphx/streamlit-webrtc
 
