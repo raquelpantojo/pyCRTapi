@@ -32,30 +32,8 @@ def capturar_video(camera_index, output_filename):
 
     # ... Restante do código de captura de vídeo ...
 
-# Streamlit app
-st.title("Video Capture and Display Example")
 
-# Permitir que o usuário selecione uma câmera
-camera_index = st.number_input("Digite o índice da câmera:", min_value=0, step=1)
 
-output_filename = "captured_video.avi"
-
-capture_button = st.button("Iniciar Captura")
-
-if capture_button:
-    video_thread = threading.Thread(target=capturar_video, args=(int(camera_index), output_filename))
-    video_thread.start()
-
-stop_button = st.button("Parar Captura")
-
-if stop_button:
-    # Set the stop event to stop video capture
-    stop_event.set()
-
-# Display the captured video
-if os.path.exists(output_filename):
-    st.write("Captured Video:")
-    st.video(output_filename)
 
 
 # Função para verificar se há imagens de pele em um vídeo
@@ -110,8 +88,8 @@ def verifica_imagens_de_pele(video):
         # Combine as duas máscaras resultantes usando uma operação AND
         mascara_combinada = cv2.bitwise_and(mascara_hsv, mascara_ycrcb)
 
-        #limite_percentagem_pele = 1  # Defina um limite de porcentagem aqui
-        print(f"imagem_hsv shape: {imagem_hsv.shape}")
+    
+        #print(f"imagem_hsv shape: {imagem_hsv.shape}")
         print(f"imagem_ycrcb shape: {imagem_ycrcb.shape}")          
         if np.count_nonzero(skinMask) > 0:
             tem_imagem_de_pele = True
@@ -184,24 +162,7 @@ else:
             cap.release()
             st.image(frame, caption="Imagem Original", use_column_width=True)
 
-            # Caixa de seleção da ROI
-            st.write("Selecione a ROI arrastando e soltando o mouse sobre a imagem.")
-            roi = st.image(frame, use_column_width=True, key="roi_selection", clamp=(0, 0, frame.shape[1], frame.shape[0]))
-
-            # Obtendo as coordenadas da ROI selecionada
-            roi_coords = roi.select_region()
-
-            if roi_coords:
-                x1, y1, x2, y2 = roi_coords
-                st.write(f"Coordenadas da ROI: ({x1}, {y1}) a ({x2}, {y2})")
-                
-                # Recortando a ROI da imagem original
-                roi_image = frame[y1:y2, x1:x2]
-
-                # Exibindo a ROI recortada
-                st.image(roi_image, caption="ROI Selecionada", use_column_width=True)
-        
-
+    
 
 # Exibir os logos no rodapé com o texto "Desenvolvido por:" e fundo preto
 st.markdown(
