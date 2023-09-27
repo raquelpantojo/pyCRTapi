@@ -1,5 +1,5 @@
 """
-atualizado dia 21-09 
+atualizado dia 27-09 
 
 dicas: https://github.com/whitphx/streamlit-webrtc
 
@@ -13,6 +13,61 @@ from process_video import process_video  # Importe a função process_video do s
 import threading
 
 
+
+
+import streamlit as st
+
+# Define o layout da página
+st.set_page_config(
+    page_title="Cálculo do Tempo de Enchimento capilar",
+    page_icon=":information_source:",
+    layout="wide"
+)
+
+# Use HTML para criar um layout personalizado
+st.markdown("""
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .title {
+            font-size: 36px;
+        }
+        .menu {
+            margin-top: 25px;
+            margin-right: 20px;
+        }
+    </style>
+    <div class="container">
+        <div class="title">Cálculo do Tempo de Enchimento capilar</div>
+        <div class="menu">
+            <a href="#sobre">Sobre</a>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
+# Ancoragem para a seção "Sobre"
+st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
+
+# Conteúdo da seção "Sobre"
+st.header("Sobre")
+st.write("Desenvolvido por:")
+st.image("logo_lab.png", use_column_width=True, width=50)
+st.image("logo_usp.png", use_column_width=True, width=50)
+
+# Adicionar um link no sidebar
+st.markdown(
+    """
+[Visite nosso site](https://sites.usp.br/photobiomed/)
+"""
+)
+
+
+
+
+
+
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
@@ -23,14 +78,14 @@ os.makedirs(uploads_dir, exist_ok=True)
 stop_event = threading.Event()
 
 # Function to capture video from the camera
-def capturar_video(camera_index):
+def capturar_video(camera_index, output_filename):
     cap = cv2.VideoCapture(camera_index)
     
     if not cap.isOpened():
         st.error(f"Não foi possível acessar a câmera {camera_index}.")
         return
 
-
+output_filename = None  # Inicialize a variável global    
 
 # Função para verificar se há imagens de pele em um vídeo
 def verifica_imagens_de_pele(video):
@@ -84,17 +139,18 @@ def verifica_imagens_de_pele(video):
         # Combine as duas máscaras resultantes usando uma operação AND
         mascara_combinada = cv2.bitwise_and(mascara_hsv, mascara_ycrcb)
 
-        #limite_percentagem_pele = 1  # Defina um limite de porcentagem aqui
-        print(f"imagem_hsv shape: {imagem_hsv.shape}")
-        print(f"imagem_ycrcb shape: {imagem_ycrcb.shape}")          
-        if np.count_nonzero(skinMask) > 0:
+    
+        #print(f"imagem_hsv shape: {imagem_hsv.shape}")
+        tem_pixels = np.any(mascara_combinada)
+        #print(f"imagem_ycrcb shape: {imagem_ycrcb.shape}")          
+        if tem_pixels:
             tem_imagem_de_pele = True
             break
                 
 
     cap.release()
 
-    return tem_imagem_de_pele, skin, imagem_hsv, imagem_ycrcb  # Retorna também a skin_mask e a imagem_ycrcb
+    return tem_imagem_de_pele  # Retorna também a skin_mask e a imagem_ycrcb
 
 
 # Interface do Streamlit
@@ -106,6 +162,7 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
 
 if opcao == "Fazer um video":
+        # Fazer video:
         cap = cv2.VideoCapture(camera_index)
         if cap.isOpened():
             ret, frame = cap.read()
@@ -113,16 +170,14 @@ if opcao == "Fazer um video":
                 st.image(frame, channels="BGR", use_column_width=True)
         cap.release()
 
-
-        st.write("Vídeo Capturado:")
-        st.video(output_filename)
-
         if st.button("Iniciar Gravação", key=f"start_button_{camera_index}"):
             output_filename = f"video_capturado_camera_{camera_index}.avi"
             capturar_video(camera_index, output_filename)  # Inicie a gravação
 
             # Após a gravação, exiba o vídeo gravado
+            st.write("Vídeo Capturado:")
             st.video(output_filename)
+            
         # Verifique se camera_index não é None antes de chamar capturar_video
         if camera_index is not None:
             output_filename = f"video_capturado_camera_{camera_index}.avi"
@@ -131,6 +186,7 @@ if opcao == "Fazer um video":
                 capturar_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
 
                 # Após a gravação, exiba o vídeo gravado
+                st.write("Vídeo Capturado:")
                 st.video(output_filename)
 
 else:
@@ -140,10 +196,12 @@ else:
         with open(video_path, "wb") as f:
             f.write(uploaded_file.read())  # Salva o arquivo enviado pelo usuário
         # Verifique as imagens de pele e processe o vídeo
-        tem_pele, mascara_final, imagem_hsv, imagem_ycrcb = verifica_imagens_de_pele(uploaded_file)
-        if tem_pele:
+        tem_pele = verifica_imagens_de_pele(uploaded_file)
+        
+        if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
+            
 
             st.write("Processando vídeo...")
             processed_data = process_video(video_path)  # Processar o vídeo
@@ -154,39 +212,10 @@ else:
             frame_number = 50  # Número do quadro desejado
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
-            if ret:
-                frame_ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
-                st.image(frame_ycrcb, channels="BGR", use_column_width=True, caption=f"Quadro {frame_number} em YCrCb")
-
+        
             cap.release()
-
+            
         else:
-            st.write("Não foram encontradas imagens de pele.")
-            st.video(video_path)
+            st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
+    
 
-
-
-
-# Exibir os logos no rodapé com o texto "Desenvolvido por:" e fundo preto
-st.markdown(
-    """
-<style>
-.sidebar .sidebar-content {
-    background-color: #000000;
-    color: white;
-}
-</style>
-""",
-    unsafe_allow_html=True,
-)
-
-st.sidebar.write("Desenvolvido por:")
-st.sidebar.image("logo_lab.png", use_column_width=True, width=150)
-st.sidebar.image("logo_usp.png", use_column_width=True, width=150)
-
-# Adicionar um link no sidebar
-st.sidebar.markdown(
-    """
-[Visite nosso site](https://sites.usp.br/photobiomed/)
-"""
-)
