@@ -13,6 +13,10 @@ from process_video import process_video  # Importe a função process_video do s
 import threading
 
 
+from rembg import remove
+from PIL import Image
+from io import BytesIO
+import base64
 
 
 import streamlit as st
@@ -76,6 +80,39 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 # Global variable for the stop event
 stop_event = threading.Event()
+
+
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+# Download the fixed image
+def convert_image(img):
+    buf = BytesIO()
+    img.save(buf, format="PNG")
+    byte_im = buf.getvalue()
+    return byte_im
+
+
+def fix_image(upload):
+    image = Image.open(upload)
+    #st.write("Original Image :camera:")
+    #st.image(image)
+
+    fixed = remove(image)
+    st.write("Fixed Image :wrench:")
+    st.image(fixed)
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Function to capture video from the camera
 def capturar_video(camera_index, output_filename):
@@ -212,7 +249,7 @@ else:
             frame_number = 50  # Número do quadro desejado
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
-        
+            fix_image(upload=frame)
             cap.release()
             
         else:
