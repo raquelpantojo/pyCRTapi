@@ -94,12 +94,13 @@ def convert_image(img):
 
 def fix_image(upload):
     image = Image.open(upload, resample=Image.LANCZOS)
-    #st.write("Original Image :camera:")
-    #st.image(image)
+    st.write("Original Image :camera:")
+    st.image(image)
 
     fixed = remove(image)
     st.write("Fixed Image :wrench:")
     st.image(fixed)
+
     
 
 
@@ -250,11 +251,11 @@ else:
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
             
-            # Salve o quadro em um arquivo temporário
-            temp_frame_filename = "temp_frame.jpg"
-            cv2.imwrite(temp_frame_filename, frame)
-            fix_image(upload=temp_frame_filename)  # Passe o arquivo temporário para a função
-            cap.release()
+            # mostrar o video com o fundo removido:
+            fix_video(video_path)  # Chame a função para remover o fundo do vídeo
+            st.write("Vídeo com fundo removido:")
+            st.video(output_video_path)
+                    
             
         else:
             st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
