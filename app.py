@@ -34,7 +34,7 @@ def capturar_video(camera_index, output_filename):
 
 
 
-
+    
 
 # Função para verificar se há imagens de pele em um vídeo
 def verifica_imagens_de_pele(video):
