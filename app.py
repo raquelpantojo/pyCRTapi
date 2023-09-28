@@ -151,14 +151,6 @@ def verifica_imagens_de_pele(video):
 
     return tem_imagem_de_pele  # Retorna também a skin_mask e a imagem_ycrcb
 
-# Interface do Streamlit
-st.title("Detecção de pyCRT")
-st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
-
-opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
-
-
-
 if opcao == "Fazer um video":
         # Fazer video:
         camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
@@ -216,10 +208,21 @@ else:
 
 
 
+# Interface do Streamlit
+st.title("Detecção de pyCRT")
+st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
+
+opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
+
 
 
 # Ancoragem para a seção "Sobre"
 st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
+
+
+
+st.write("Desenvolvido por")
+    
 
 # Conteúdo da seção "Sobre"
 with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
@@ -231,13 +234,13 @@ with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
 
     # Adicione as imagens nas colunas
     with col1:
-        st.image("logo_lab.png", use_column_width=True, width=50)
+        st.image("logo_lab.png", use_column_width=True, width=30)
 
     with col2:
-        st.image("logo_usp.png", use_column_width=True, width=50)
+        st.image("logo_usp.png", use_column_width=True, width=30)
 
-# Adicionar um link no sidebar
-st.markdown(
-    """
-[Visite nosso site](https://sites.usp.br/photobiomed/)
-""")
+    # Adicionar um link no sidebar
+    st.markdown(
+        """
+    [Visite nosso site](https://sites.usp.br/photobiomed/)
+    """)
