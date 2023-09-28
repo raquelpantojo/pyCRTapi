@@ -14,9 +14,6 @@ if not cap.isOpened():
 else:
     st.success('Captura de vídeo inicializada com sucesso')
 
-# Elemento de exibição de vídeo
-video_display = st.empty()
-
 # Botão para iniciar a gravação
 start_recording = st.button('Iniciar Gravação')
 recording = False
@@ -33,14 +30,13 @@ if start_recording:
 while True:
     ret, frame = cap.read()
     if ret:
-        # Exiba o quadro no aplicativo
-        video_display.image(frame, channels='BGR', use_column_width=True)
-
         # Se estiver gravando, salve o quadro no arquivo de saída
         if recording and out is not None:
             out.write(frame)
-    
-    if not recording and out is not None:
-        out.release()
-        st.video('output.avi')  # Exiba o vídeo após a gravação ser interrompida
-        break
+
+        # Exiba o quadro no aplicativo
+        st.image(frame, channels='BGR', use_column_width=True)
+
+        if not recording and out is not None:
+            out.release()
+            break
