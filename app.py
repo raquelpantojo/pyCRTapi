@@ -22,6 +22,11 @@ def start_capture():
 
     while True:
         ret, frame = cap.read()
+        
+        if not ret or frame is None:
+            st.write("Erro na captura de vídeo. Verifique sua câmera.")
+            break
+        
         out.write(frame)
 
         # Converter o quadro OpenCV em um formato compatível com o Streamlit (Pillow)
