@@ -216,14 +216,10 @@ else:
 
 
 
-
+st.write("Desenvolvido por")
 # Ancoragem para a seção "Sobre"
 st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
 
-
-
-st.write("Desenvolvido por")
-    
 
 # Conteúdo da seção "Sobre"
 with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
