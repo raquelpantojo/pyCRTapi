@@ -1,49 +1,58 @@
 import streamlit as st
+from streamlit_webrtc import webrtc_streamer
+from webrtc_streamer import VideoProcessorBase
 import cv2
-import numpy as np
-import threading
+
+# Configura a permissão da câmera
+st.set_option('server.enableCORS', False)
 
 # Variável para controlar a gravação
 recording = False
-
-# Variável para armazenar o vídeo gravado
 out = None
 
+# Defina a classe VideoProcessor para processar os quadros de vídeo e salvar em um arquivo
+class VideoProcessor(VideoProcessorBase):
+    def __init__(self, output_file):
+        self.output_file = output_file
+        self.out = None
+
+    def recv(self, frame):
+        if recording:
+            if self.out is None:
+                fourcc = cv2.VideoWriter_fourcc(*'XVID')
+                self.out = cv2.VideoWriter(self.output_file, fourcc, 24.0, (frame.width, frame.height))
+            self.out.write(frame.to_ndarray(format="bgr24"))
+        else:
+            if self.out:
+                self.out.release()
+                self.out = None
+
 def main():
-    st.title("Aplicação de Captura de Vídeo")
+    st.title("Aplicação de Captura e Gravação de Vídeo")
 
-    option = st.radio("Selecione uma opção:", ("Fazer um vídeo", "Enviar Vídeo Existente"))
+    output_file = "video1.avi"
 
-    if option == "Fazer um vídeo":
-        global recording
+    webrtc_ctx = webrtc_streamer(
+        key="example",
+        mode=0,
+        video_processor_factory=VideoProcessor,
+        async_processing=True,
+        output_file=output_file,
+    )
 
-        camera_index = st.camera_input("Câmera")  # Escolha a câmera
+    global recording
+    start_stop_button = st.button("Iniciar Gravação" if not recording else "Parar Gravação")
+    
+    if start_stop_button:
+        recording = not recording
 
-        st.write("Iniciando a captura de vídeo. Aguarde...")
+    if recording:
+        st.write("Gravação em andamento. Clique no botão 'Parar Gravação' para encerrar.")
+    else:
+        st.write("Clique no botão 'Iniciar Gravação' para iniciar a gravação.")
 
-        cap = cv2.VideoCapture(camera_index)
-
-
-
-        while recording:
-            ret, frame = cap.read()
-            if not ret:
-                break
-
-            st.image(frame, channels="BGR", use_column_width=True)
-
-            if recording:
-                out.write(frame)
-
-        cap.release()
-
-        if out:
-            st.write("Gravação concluída. Clique no botão abaixo para ver o vídeo.")
-            if st.button("Mostrar Vídeo Gravado"):
-                show_video('video1.avi')
-
-    elif option == "Enviar Vídeo Existente":
-        st.write("Opção 'Enviar Vídeo Existente' selecionada. Faça o upload de um vídeo existente.")
+    if st.button("Mostrar Vídeo Gravado"):
+        show_video(output_file)
 
 def show_video(video_path):
     video_file = open(video_path, 'rb')
@@ -51,13 +60,4 @@ def show_video(video_path):
     st.video(video_bytes)
 
 if __name__ == "__main__":
-    st.button("Iniciar/Parar Gravação", key="start_stop_button")
-
-    if st.session_state.start_stop_button:
-        if not recording:
-            out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
-        else:
-            out.release()
-        recording = not recording
-
     main()
