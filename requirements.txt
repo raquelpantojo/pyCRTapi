@@ -3,6 +3,7 @@ seaborn
 matplotlib
 streamlit
 aiortc
+google_crc32c
 pyCRT==2.0.3
 opencv-python-headless
 opencv_contrib_python
