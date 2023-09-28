@@ -51,8 +51,10 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Ancoragem para a seção "Sobre"
 
+
+# Ancoragem para a seção "Sobre"
+st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
 
 # Conteúdo da seção "Sobre"
 with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
