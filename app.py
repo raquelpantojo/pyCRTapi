@@ -1,6 +1,13 @@
 import streamlit as st
 import cv2
 import numpy as np
+import threading
+
+# Variável para controlar a gravação
+recording = False
+
+# Variável para armazenar o vídeo gravado
+out = None
 
 def main():
     st.title("Aplicação de Captura de Vídeo")
@@ -8,23 +15,15 @@ def main():
     option = st.radio("Selecione uma opção:", ("Fazer um vídeo", "Enviar Vídeo Existente"))
 
     if option == "Fazer um vídeo":
-        camera_index = st.camera_input("Câmera:")  # Escolha a câmera
+        global recording
+
+        camera_index = st.camera_input("Câmera")  # Escolha a câmera
 
         st.write("Iniciando a captura de vídeo. Aguarde...")
 
         cap = cv2.VideoCapture(camera_index)
 
-        out = None
-        recording = False
 
-        start_stop_button = st.button("Iniciar Gravação" if not recording else "Parar Gravação")  # Botão para iniciar e parar a gravação
-
-        if start_stop_button:
-            recording = not recording
-            if recording:
-                out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
-            else:
-                out.release()
 
         while recording:
             ret, frame = cap.read()
@@ -52,4 +51,13 @@ def show_video(video_path):
     st.video(video_bytes)
 
 if __name__ == "__main__":
+    st.button("Iniciar/Parar Gravação", key="start_stop_button")
+
+    if st.session_state.start_stop_button:
+        if not recording:
+            out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
+        else:
+            out.release()
+        recording = not recording
+
     main()
