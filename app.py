@@ -1,63 +1,46 @@
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer
-from webrtc_streamer import VideoProcessorBase
 import cv2
+import numpy as np
 
-# Configura a permissão da câmera
-st.set_option('server.enableCORS', False)
+# Configurações do Streamlit
+st.set_page_config(page_title='Capturar e Salvar Vídeo', layout='centered')
 
-# Variável para controlar a gravação
+# Inicialize a captura de vídeo usando a OpenCV
+cap = cv2.VideoCapture(0)  # Use 0 para a câmera padrão, você pode ajustar o índice se tiver várias câmeras.
+
+# Verifique se a captura de vídeo foi inicializada com sucesso
+if not cap.isOpened():
+    st.error('Erro ao inicializar a captura de vídeo')
+else:
+    st.success('Captura de vídeo inicializada com sucesso')
+
+# Elemento de exibição de vídeo
+video_display = st.empty()
+
+# Botão para iniciar a gravação
+start_recording = st.button('Iniciar Gravação')
 recording = False
 out = None
 
-# Defina a classe VideoProcessor para processar os quadros de vídeo e salvar em um arquivo
-class VideoProcessor(VideoProcessorBase):
-    def __init__(self, output_file):
-        self.output_file = output_file
-        self.out = None
+if start_recording:
+    # Inicialize a gravação de vídeo
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Escolha o codec apropriado
+    out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))  # Defina o nome do arquivo, codec, taxa de quadros e resolução
+    recording = True
+    st.success('Iniciando gravação de vídeo. Clique em "Parar Gravação" para interromper.')
 
-    def recv(self, frame):
-        if recording:
-            if self.out is None:
-                fourcc = cv2.VideoWriter_fourcc(*'XVID')
-                self.out = cv2.VideoWriter(self.output_file, fourcc, 24.0, (frame.width, frame.height))
-            self.out.write(frame.to_ndarray(format="bgr24"))
-        else:
-            if self.out:
-                self.out.release()
-                self.out = None
+# Loop principal do aplicativo
+while True:
+    ret, frame = cap.read()
+    if ret:
+        # Exiba o quadro no aplicativo
+        video_display.image(frame, channels='BGR', use_column_width=True)
 
-def main():
-    st.title("Aplicação de Captura e Gravação de Vídeo")
-
-    output_file = "video1.avi"
-
-    webrtc_ctx = webrtc_streamer(
-        key="example",
-        mode=0,
-        video_processor_factory=VideoProcessor,
-        async_processing=True,
-        output_file=output_file,
-    )
-
-    global recording
-    start_stop_button = st.button("Iniciar Gravação" if not recording else "Parar Gravação")
+        # Se estiver gravando, salve o quadro no arquivo de saída
+        if recording and out is not None:
+            out.write(frame)
     
-    if start_stop_button:
-        recording = not recording
-
-    if recording:
-        st.write("Gravação em andamento. Clique no botão 'Parar Gravação' para encerrar.")
-    else:
-        st.write("Clique no botão 'Iniciar Gravação' para iniciar a gravação.")
-
-    if st.button("Mostrar Vídeo Gravado"):
-        show_video(output_file)
-
-def show_video(video_path):
-    video_file = open(video_path, 'rb')
-    video_bytes = video_file.read()
-    st.video(video_bytes)
-
-if __name__ == "__main__":
-    main()
+    if not recording and out is not None:
+        out.release()
+        st.video('output.avi')  # Exiba o vídeo após a gravação ser interrompida
+        break
