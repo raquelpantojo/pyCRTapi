@@ -53,42 +53,10 @@ st.markdown("""
 
 
 
-# Ancoragem para a seção "Sobre"
-st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
-
-# Conteúdo da seção "Sobre"
-with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
-#with st.beta_expander("Sobre", expanded=False):
-    st.write("Desenvolvido por:")
-
-    # Crie duas colunas para exibir as imagens lado a lado
-    col1, col2 = st.beta_columns(2)
-
-    # Adicione as imagens nas colunas
-    with col1:
-        st.image("logo_lab.png", use_column_width=True, width=50)
-
-    with col2:
-        st.image("logo_usp.png", use_column_width=True, width=50)
-
-# Adicionar um link no sidebar
-st.markdown(
-    """
-[Visite nosso site](https://sites.usp.br/photobiomed/)
-""")
-
-
-
-
 # Configurar diretório de upload
 uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
 
-
-# Global variable for the stop event
-stop_event = threading.Event()
-
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 # Download the fixed image
 def convert_image(img):
@@ -189,10 +157,11 @@ st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
-camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
+
 
 if opcao == "Fazer um video":
         # Fazer video:
+        camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
         cap = cv2.VideoCapture(camera_index)
         if cap.isOpened():
             ret, frame = cap.read()
@@ -208,16 +177,6 @@ if opcao == "Fazer um video":
             st.write("Vídeo Capturado:")
             st.video(output_filename)
             
-        # Verifique se camera_index não é None antes de chamar capturar_video
-        if camera_index is not None:
-            output_filename = f"video_capturado_camera_{camera_index}.avi"
-            
-            if st.button("Iniciar Gravação"):
-                capturar_video(camera_index, output_filename)  # Chame a função para gravar o vídeo
-
-                # Após a gravação, exiba o vídeo gravado
-                st.write("Vídeo Capturado:")
-                st.video(output_filename)
 
 else:
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
@@ -256,3 +215,29 @@ else:
     
 
 
+
+
+
+# Ancoragem para a seção "Sobre"
+st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
+
+# Conteúdo da seção "Sobre"
+with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
+#with st.beta_expander("Sobre", expanded=False):
+    st.write("Desenvolvido por:")
+
+    # Crie duas colunas para exibir as imagens lado a lado
+    col1, col2 = st.beta_columns(2)
+
+    # Adicione as imagens nas colunas
+    with col1:
+        st.image("logo_lab.png", use_column_width=True, width=50)
+
+    with col2:
+        st.image("logo_usp.png", use_column_width=True, width=50)
+
+# Adicionar um link no sidebar
+st.markdown(
+    """
+[Visite nosso site](https://sites.usp.br/photobiomed/)
+""")
