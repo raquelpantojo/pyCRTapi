@@ -11,10 +11,9 @@ def start_capture():
     
     for i in range(10):
         cap = cv2.VideoCapture(i)
-    if not cap.isOpened():
-        
-        break
-    print(f"Camera {i}: {cap.get(3)}x{cap.get(4)}")
+        if not cap.isOpened():
+            break
+        print(f"Camera {i}: {cap.get(3)}x{cap.get(4)}")
  
     out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
 
