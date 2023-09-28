@@ -18,19 +18,29 @@ def main():
             st.write("Erro ao iniciar a câmera. Verifique a configuração da câmera.")
             return
 
-        out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
+        out = None
+        recording = False
 
-        while True:
+        record_button = st.button("Iniciar Gravação")  # Botão para iniciar e parar a gravação
+
+        if record_button:
+            recording = not recording
+            if recording:
+                out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
+            else:
+                out.release()
+
+        while recording:
             ret, frame = cap.read()
             if not ret:
                 break
 
             st.image(frame, channels="BGR", use_column_width=True)
 
-            out.write(frame)
+            if recording:
+                out.write(frame)
 
         cap.release()
-        out.release()
 
     elif option == "Enviar Vídeo Existente":
         st.write("Opção 'Enviar Vídeo Existente' selecionada. Faça o upload de um vídeo existente.")
