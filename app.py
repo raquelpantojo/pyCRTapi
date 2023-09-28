@@ -30,6 +30,7 @@ st.set_page_config(
 
 # Use HTML para criar um layout personalizado
 st.markdown("""
+    
     <style>
         .container {
             display: flex;
@@ -55,17 +56,27 @@ st.markdown("""
 st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
 
 # Conteúdo da seção "Sobre"
-st.header("Sobre")
-st.write("Desenvolvido por:")
-st.image("logo_lab.png", use_column_width=True, width=50)
-st.image("logo_usp.png", use_column_width=True, width=50)
+with st.expander("Sobre", expanded=False):
+    st.write("Desenvolvido por:")
+    st.image("logo_lab.png", use_column_width=True, width=50)
+    st.image("logo_usp.png", use_column_width=True, width=50)
 
 # Adicionar um link no sidebar
 st.markdown(
     """
 [Visite nosso site](https://sites.usp.br/photobiomed/)
+""")
+
+# JavaScript para ativar o expander quando o link "Sobre" é clicado
+javascript_code = """
+<script>
+document.getElementById("link-sobre").addEventListener("click", function() {
+    document.querySelector(".st-ay").click();
+});
+</script>
 """
-)
+
+st.markdown(javascript_code, unsafe_allow_html=True)
 
 
 
