@@ -5,7 +5,8 @@ from pyCRT import PCRT
 import numpy as np
 import time
 
-# Função para iniciar a captura de vídeo
+from PIL import Image
+
 def start_capture():
     cap = cv2.VideoCapture(0)
     out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
@@ -23,7 +24,10 @@ def start_capture():
         ret, frame = cap.read()
         out.write(frame)
 
-        st.image(frame, use_column_width=True)
+        # Converter o quadro OpenCV em um formato compatível com o Streamlit (Pillow)
+        pil_image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+        st.image(pil_image, use_column_width=True)  # Exibir a imagem
 
         st.write(f"Cronômetro: {number:.1f}")
         if number > 2 and number <= 4:
