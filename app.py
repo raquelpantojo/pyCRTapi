@@ -231,10 +231,10 @@ with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
 
     # Adicione as imagens nas colunas
     with col1:
-        st.image("logo_lab.png", use_column_width=True, width=30)
+        st.image("logo_lab.png", use_column_width=True, width=40)
 
     with col2:
-        st.image("logo_usp.png", use_column_width=True, width=30)
+        st.image("logo_usp.png", use_column_width=True, width=40)
 
     # Adicionar um link no sidebar
     st.markdown(
