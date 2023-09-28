@@ -14,10 +14,6 @@ def main():
 
         cap = cv2.VideoCapture(camera_index)
 
-        if not cap.isOpened():
-            st.write("Erro ao iniciar a câmera. Verifique a configuração da câmera.")
-            return
-
         out = None
         recording = False
 
