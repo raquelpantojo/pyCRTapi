@@ -244,7 +244,7 @@ else:
             
             # Remover o fundo do vídeo
             #output_video_path = "video_com_fundo_removido"  # Especifique o caminho de saída desejado
-            remove_image(video_path)  # Chame a função para remover o fundo do vídeo
+            remove_image(frame)  # Chame a função para remover o fundo do vídeo
 
             #st.write("Vídeo com fundo removido:")
             #st.image(output_video_path)
