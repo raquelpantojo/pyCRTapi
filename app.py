@@ -52,10 +52,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Ancoragem para a seção "Sobre"
-st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
+
 
 # Conteúdo da seção "Sobre"
-with st.beta_expander("Sobre", expanded=False):
+with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
+#with st.beta_expander("Sobre", expanded=False):
     st.write("Desenvolvido por:")
 
     # Crie duas colunas para exibir as imagens lado a lado
