@@ -7,13 +7,19 @@ import time
 
 from PIL import Image
 
+opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
+
+camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
+
 def start_capture():
     
-    for i in range(10):
-        cap = cv2.VideoCapture(i)
-        if not cap.isOpened():
-            break
-        print(f"Camera {i}: {cap.get(3)}x{cap.get(4)}")
+
+    cap = cv2.VideoCapture(camera_index)
+    if cap.isOpened():
+        ret, frame = cap.read()
+        if ret:
+            st.image(frame, channels="BGR", use_column_width=True)
+    cap.release()
  
     out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
 
