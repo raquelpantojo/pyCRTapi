@@ -30,7 +30,6 @@ st.set_page_config(
 
 # Use HTML para criar um layout personalizado
 st.markdown("""
-    
     <style>
         .container {
             display: flex;
@@ -47,7 +46,7 @@ st.markdown("""
     <div class="container">
         <div class="title">Cálculo do Tempo de Enchimento capilar</div>
         <div class="menu">
-            <a href="#sobre">Sobre</a>
+            <a href="#sobre" id="sobre-link">Sobre</a>
         </div>
     </div>
 """, unsafe_allow_html=True)
@@ -56,31 +55,24 @@ st.markdown("""
 st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
 
 # Conteúdo da seção "Sobre"
-st.write("Desenvolvido por:")
-st.image("logo_lab.png", use_column_width=True, width=50)
-st.image("logo_usp.png", use_column_width=True, width=50)
+with st.beta_expander("Sobre", expanded=False):
+    st.write("Desenvolvido por:")
+
+    # Crie duas colunas para exibir as imagens lado a lado
+    col1, col2 = st.beta_columns(2)
+
+    # Adicione as imagens nas colunas
+    with col1:
+        st.image("logo_lab.png", use_column_width=True, width=50)
+
+    with col2:
+        st.image("logo_usp.png", use_column_width=True, width=50)
 
 # Adicionar um link no sidebar
 st.markdown(
     """
 [Visite nosso site](https://sites.usp.br/photobiomed/)
 """)
-
-# JavaScript para mostrar/ocultar a seção "Sobre" ao clicar no link
-javascript_code = """
-<script>
-document.getElementById("sobre-link").addEventListener("click", function() {
-    var sobreSection = document.getElementById("sobre");
-    if (sobreSection.style.display === 'none') {
-        sobreSection.style.display = 'block';
-    } else {
-        sobreSection.style.display = 'none';
-    }
-});
-</script>
-"""
-
-st.markdown(javascript_code, unsafe_allow_html=True)
 
 
 
