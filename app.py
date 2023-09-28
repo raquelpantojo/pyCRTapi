@@ -8,7 +8,7 @@ import time
 from PIL import Image
 
 def start_capture():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     out = cv2.VideoWriter('video1.avi', cv2.VideoWriter_fourcc(*'XVID'), 24.0, (1280, 720))
 
     st.image(np.zeros((1, 1, 3)))  # Placeholder para o vídeo
