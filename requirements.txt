@@ -7,6 +7,7 @@ google_crc32c
 pyCRT==2.0.3
 opencv-python-headless
 opencv_contrib_python
+opencv-python
 streamlit_webrtc 
 rembg==2.0.50
 Pillow==9.3.0
@@ -14,3 +15,26 @@ streamlit==1.21.0
 numba==0.57
 numpy==1.23.0
 moviepy==1.0.3
+
+# Base ----------------------------------------
+PyYAML>=5.3.1
+requests>=2.23.0
+scipy>=1.4.1  # Versão específica necessária para o Google Colab
+torch
+torchvision>=0.8.1
+tqdm>=4.41.0
+protobuf<4.21.5  # https://github.com/ultralytics/yolov5/issues/8012
+ultralytics
+yolov5
+
+# Logging -------------------------------------
+tensorboard>=2.4.1
+# wandb
+
+
+# Extras --------------------------------------
+ipython  # Para uso interativo no notebook
+psutil  # Utilização do sistema
+thop  # Cálculo de FLOPs
+ffmpeg-python
+
