@@ -13,12 +13,15 @@ import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
 import threading
 
-from rembg import remove
 from PIL import Image
 from io import BytesIO
-import base64
 
-import subprocess
+## yolo v5
+import torch
+import tempfile
+
+# Carregue o modelo YOLOv5 'finger.pt' localmente
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
 
 
 # Define o layout da página
@@ -58,23 +61,18 @@ uploads_dir = "uploads"
 os.makedirs(uploads_dir, exist_ok=True)
 
 
-# Download the fixed image
-def convert_image(img):
-    buf = BytesIO()
-    img.save(buf, format="PNG")
-    byte_im = buf.getvalue()
-    return byte_im
 
-#Remover background
-def remove_image(upload):
-    image = Image.open(upload)
-    #st.write("Original Image :camera:")
-    #st.image(image)
+# Função para realizar a detecção em um frame
+def detect_finger(image):
+    #model.conf = 0.70  # Defina o threshold de confiança desejado
+    #confidence_threshold = 0.70
 
-    fixed = remove(image)
-    #st.write("Imagem com Fundo Removido :wrench:")
-    #st.image(fixed)
-    return fixed
+    # Realize a detecção
+    #results = model.detect(image, confidence_threshold)
+    results = model(image)
+
+    return results
+
 
 
 # Function to capture video from the camera
@@ -202,6 +200,71 @@ else:
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
             
+            if uploaded_file is not None:
+                # Salve o vídeo em um arquivo temporário
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
+                    temp_filename = temp_file.name
+                    temp_file.write(uploaded_file.read())
+
+                # Abra o vídeo com o caminho do arquivo temporário
+                video_capture = cv2.VideoCapture(temp_filename)
+
+                # Inicialize variáveis
+                detections_found = 0  # Quantas detecções encontradas
+                target_detections = 3  # Quantidade de detecções desejadas
+
+                # Abra o vídeo de saída para salvar as detecções
+                frame_width = int(video_capture.get(3))
+                frame_height = int(video_capture.get(4))
+                out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, frame_height))
+
+                # Loop para processar cada frame do vídeo
+                while detections_found < target_detections:
+                    ret, frame = video_capture.read()
+                    if not ret:
+                        break
+
+                    # Realize a detecção no frame
+                    results = detect_finger(frame)
+                    detected_frame = results.render()[0]
+
+                    # Se uma detecção foi encontrada, exiba o frame
+                    if len(results.xyxy[0]) > 0:
+                        detection = results.xyxy[0][0]  # Pegue a primeira detecção
+                        xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
+                        
+                        x1, y1, x2, y2 = map(int, detection[0:4])  
+                        roi = frame[y1:y2, x1:x2]
+                        
+                        st.image(roi,channels ="BGR")
+                        st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+                        
+                        #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
+                        
+                        # Converte para números inteiros
+                        #x1 = int(x - w / 2)
+                        #y1 = int(y - h / 2)
+                        #x2 = int(x + w / 2)
+                        #y2 = int(y + h / 2)
+                        
+                        st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
+                        st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
+                        
+                
+                        detections_found += 1
+
+                    # Escreva o frame no vídeo de saída
+                    out.write(detected_frame)
+
+                # Fecha o vídeo de saída
+                out.release()
+
+
+            # Certifique-se de apagar o arquivo temporário após o uso
+            os.remove(temp_filename)
+
+
+
             # Remover o fundo do vídeo
             #output_video_path = "video_com_fundo_removido"  # Especifique o caminho de saída desejado
             #remove_image(frame)  # Chame a função para remover o fundo do vídeo
