@@ -17,13 +17,13 @@ from PIL import Image
 from io import BytesIO
 
 ## yolo v5
-import torch
-import tempfile
+#import torch
+#import tempfile
 
 # Carregue o modelo YOLOv5 'finger.pt' localmente
 #model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
+#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
 
 
 
@@ -198,6 +198,7 @@ else:
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             ret, frame = cap.read()
             
+            """
             if uploaded_file is not None:
                 # Salve o vídeo em um arquivo temporário
                 with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
@@ -256,10 +257,13 @@ else:
 
                 # Fecha o vídeo de saída
                 out.release()
-
-
-            # Certifique-se de apagar o arquivo temporário após o uso
+                     # Certifique-se de apagar o arquivo temporário após o uso
             os.remove(temp_filename)
+            """
+            
+
+
+       
 
 
 
