@@ -72,8 +72,9 @@ def remove_image(upload):
     #st.image(image)
 
     fixed = remove(image)
-    st.write("Imagem com Fundo Removido :wrench:")
-    st.image(fixed)
+    #st.write("Imagem com Fundo Removido :wrench:")
+    #st.image(fixed)
+    return fixed
 
 
 # Function to capture video from the camera
