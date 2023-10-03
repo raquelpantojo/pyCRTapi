@@ -4,3 +4,7 @@ libgl1-mesa-glx
 tesseract-ocr
 libtesseract-dev
 tesseract-ocr-all
+
+
+libgl1
+ffmpeg
