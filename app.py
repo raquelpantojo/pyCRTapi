@@ -21,7 +21,10 @@ import torch
 import tempfile
 
 # Carregue o modelo YOLOv5 'finger.pt' localmente
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt')
+#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
+
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
+
 
 
 # Define o layout da página
@@ -64,11 +67,6 @@ os.makedirs(uploads_dir, exist_ok=True)
 
 # Função para realizar a detecção em um frame
 def detect_finger(image):
-    #model.conf = 0.70  # Defina o threshold de confiança desejado
-    #confidence_threshold = 0.70
-
-    # Realize a detecção
-    #results = model.detect(image, confidence_threshold)
     results = model(image)
 
     return results
