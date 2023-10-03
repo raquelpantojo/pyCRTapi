@@ -37,4 +37,4 @@ ipython  # Para uso interativo no notebook
 psutil  # Utilização do sistema
 thop  # Cálculo de FLOPs
 ffmpeg-python
-
+wget
