@@ -256,18 +256,8 @@ else:
                 # Escreva o frame no vídeo de saída
                 out.write(detected_frame)
 
-            # Fecha o vídeo de saída
-            out.release()
-
-            #st.write("Vídeo de Saída com as Detecções:")
-            # Exiba o vídeo final
-            #st.video('output.mp4')
-
-            # Certifique-se de apagar o arquivo temporário após o uso
-            os.remove(temp_filename)
             
-            
-            
+    
         
             st.write("Processando vídeo...")
             processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
@@ -278,7 +268,11 @@ else:
             #frame_number = 50  # Número do quadro desejado
             #cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             #ret, frame = cap.read()
-                    
+            # Fecha o vídeo de saída
+            out.release()
+
+            # Certifique-se de apagar o arquivo temporário após o uso
+            os.remove(temp_filename)        
             
         else:
             st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
