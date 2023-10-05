@@ -184,7 +184,7 @@ if opcao == "Enviar Vídeo Existente":
     
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
-            st.video(video_path) 
+            #st.video(video_path) 
             
            
             # Abra o vídeo com o caminho do arquivo temporário
@@ -241,7 +241,10 @@ if opcao == "Enviar Vídeo Existente":
                 # Escreva o frame no vídeo de saída
                 out.write(detected_frame)
 
-        
+                if roi is not None and roi.size > 0:
+                        st.image(roi, channels="BGR")
+                else:
+                    st.write("Dedo não encontrado")
 
             # Capturar e exibir o quadro 50 no espaço YCrCb
             #cap = cv2.VideoCapture(video_path)
