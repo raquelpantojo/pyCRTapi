@@ -206,7 +206,7 @@ else:
             
            
             # Abra o vídeo com o caminho do arquivo temporário
-            video_capture = cv2.VideoCapture(temp_filename)
+            video_capture = cv2.VideoCapture(uploaded_file)
 
             # Inicialize variáveis
             detections_found = 0  # Quantas detecções encontradas
