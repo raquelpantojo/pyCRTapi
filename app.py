@@ -170,11 +170,10 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 
 if opcao == "Enviar Vídeo Existente":
     if uploaded_file is not None:
-    
-    uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
-    # Verifique as imagens de pele e processe o vídeo
-    tem_pele = verifica_imagens_de_pele(uploaded_file)
-    
+        uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
+        # Verifique as imagens de pele e processe o vídeo
+        tem_pele = verifica_imagens_de_pele(uploaded_file)
+        
     if tem_pele == True:
         st.write("Imagens de pele foram encontradas.")
         #st.video(video_path)
