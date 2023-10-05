@@ -2,10 +2,10 @@
 
 from pyCRT import PCRT
 
-def process_video(video_path):
+def process_video(video_path,roi):
     # Process the video using pyCRT
     #roi=(872, 477, 195, 205)
-    roi=(872, 477, 195, 205)
+    #roi=(872, 477, 195, 205)
     #roi = (191, 454, 109, 143)
     #pcrt = PCRT.fromVideoFile(video_path)
     pcrt = PCRT.fromVideoFile(video_path,roi=roi,displayVideo=False,exclusionMethod='best fit',exclusionCriteria=9999999)
