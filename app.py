@@ -202,7 +202,7 @@ else:
     
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
-            st.video(video_path, width=640) 
+            st.video(video_path) 
             
            
             # Abra o vídeo com o caminho do arquivo temporário
