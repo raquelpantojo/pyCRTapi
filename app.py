@@ -169,6 +169,8 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 
 
 if opcao == "Enviar Vídeo Existente":
+    if uploaded_file is not None:
+    
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
     # Verifique as imagens de pele e processe o vídeo
     tem_pele = verifica_imagens_de_pele(uploaded_file)
@@ -177,47 +179,45 @@ if opcao == "Enviar Vídeo Existente":
         st.write("Imagens de pele foram encontradas.")
         #st.video(video_path)
         
-        if uploaded_file is not None:
-        
-            # Para usar o Yolov5
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
-                temp_filename = temp_file.name
-                temp_file.write(uploaded_file.read())
+        # Para usar o Yolov5
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
+            temp_filename = temp_file.name
+            temp_file.write(uploaded_file.read())
             
            
-            # Abra o vídeo com o caminho do arquivo temporário
-            video_capture = cv2.VideoCapture(temp_filename)
+        # Abra o vídeo com o caminho do arquivo temporário
+        video_capture = cv2.VideoCapture(temp_filename)
 
-            # Inicialize variáveis
-            detections_found = 0  # Quantas detecções encontradas
-            target_detections = 3  # Quantidade de detecções desejadas
+        # Inicialize variáveis
+        detections_found = 0  # Quantas detecções encontradas
+        target_detections = 3  # Quantidade de detecções desejadas
 
-            # Abra o vídeo de saída para salvar as detecções
-            frame_width = int(video_capture.get(3))
-            frame_height = int(video_capture.get(4))
-            out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, frame_height))
+        # Abra o vídeo de saída para salvar as detecções
+        frame_width = int(video_capture.get(3))
+        frame_height = int(video_capture.get(4))
+        out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, frame_height))
 
-            # Loop para processar cada frame do vídeo
-            while detections_found < target_detections:
-                ret, frame = video_capture.read()
-                if not ret:
-                    break
+        # Loop para processar cada frame do vídeo
+        while detections_found < target_detections:
+            ret, frame = video_capture.read()
+            if not ret:
+                break
 
-                # Realize a detecção no frame
-                results = detect_finger(frame)
-                detected_frame = results.render()[0]
+        # Realize a detecção no frame
+        results = detect_finger(frame)
+        detected_frame = results.render()[0]
 
-                # Se uma detecção foi encontrada, exiba o frame
-                if len(results.xyxy[0]) > 0:
-                    detection = results.xyxy[0][0]  # Pegue a primeira detecção
-                    xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
+        # Se uma detecção foi encontrada, exiba o frame
+            if len(results.xyxy[0]) > 0:
+                detection = results.xyxy[0][0]  # Pegue a primeira detecção
+                xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     
-                    x1, y1, x2, y2 = map(int, detection[0:4])  
-                    roi = frame[y1:y2, x1:x2]
-                    roi_pcrt=(x1, y1, x2, y2)
+                x1, y1, x2, y2 = map(int, detection[0:4])  
+                roi = frame[y1:y2, x1:x2]
+                roi_pcrt=(x1, y1, x2, y2)
                     
-                    st.image(roi,channels ="BGR")
-                    st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+                st.image(roi,channels ="BGR")
+                st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                     
                     #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
                     
@@ -227,22 +227,22 @@ if opcao == "Enviar Vídeo Existente":
                     #x2 = int(x + w / 2)
                     #y2 = int(y + h / 2)
                     
-                    st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                    st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
+                st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
+                st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
                     
-                    st.write("Processando vídeo...")
-                    processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
-                    st.write(f"Resultados do processamento: {processed_data}")
+                st.write("Processando vídeo...")
+                processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
+                st.write(f"Resultados do processamento: {processed_data}")
                     
-                    detections_found += 1
+                detections_found += 1
 
-                # Escreva o frame no vídeo de saída
-                out.write(detected_frame)
+            # Escreva o frame no vídeo de saída
+            out.write(detected_frame)
 
-                if roi is not None and roi.size > 0:
-                        st.image(roi, channels="BGR")
-                else:
-                    st.write("Dedo não encontrado")
+            if roi is not None and roi.size > 0:
+                st.image(roi, channels="BGR")
+            else:
+                st.write("Dedo não encontrado")
 
             # Capturar e exibir o quadro 50 no espaço YCrCb
             #cap = cv2.VideoCapture(video_path)
@@ -250,10 +250,10 @@ if opcao == "Enviar Vídeo Existente":
             #cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
             #ret, frame = cap.read()
             # Fecha o vídeo de saída
-            out.release()
+        out.release()
 
             # Certifique-se de apagar o arquivo temporário após o uso
-            os.remove(temp_filename)        
+        os.remove(temp_filename)        
             
         else:
             st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
