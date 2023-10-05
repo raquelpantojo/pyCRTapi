@@ -234,6 +234,7 @@ else:
                     
                     x1, y1, x2, y2 = map(int, detection[0:4])  
                     roi = frame[y1:y2, x1:x2]
+                    roi_pcrt=(x1, y1, x2, y2)
                     
                     st.image(roi,channels ="BGR")
                     st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
@@ -266,10 +267,10 @@ else:
             os.remove(temp_filename)
             
             
-            roi=(x1, y1, x2, y2)
+            
         
             st.write("Processando vídeo...")
-            processed_data = process_video(video_path,roi)  # Processar o vídeo
+            processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
             st.write(f"Resultados do processamento: {processed_data}")
 
             # Capturar e exibir o quadro 50 no espaço YCrCb
