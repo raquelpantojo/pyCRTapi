@@ -165,26 +165,8 @@ st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
 
-if opcao == "Fazer um video":
-        # Fazer video:
-        camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
-        cap = cv2.VideoCapture(camera_index)
-        if cap.isOpened():
-            ret, frame = cap.read()
-            if ret:
-                st.image(frame, channels="BGR", use_column_width=True)
-        cap.release()
-
-        if st.button("Iniciar Gravação", key=f"start_button_{camera_index}"):
-            output_filename = f"video_capturado_camera_{camera_index}.avi"
-            capturar_video(camera_index, output_filename)  # Inicie a gravação
-
-            # Após a gravação, exiba o vídeo gravado
-            st.write("Vídeo Capturado:")
-            st.video(output_filename)
-            
-
-else:
+if opcao == "Enviar Vídeo Existente":
+    
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
     if uploaded_file is not None:
         video_path = os.path.join(uploads_dir, uploaded_file.name)
@@ -206,7 +188,7 @@ else:
             
            
             # Abra o vídeo com o caminho do arquivo temporário
-            video_capture = cv2.VideoCapture(uploaded_file)
+            video_capture = cv2.VideoCapture(temp_filename)
 
             # Inicialize variáveis
             detections_found = 0  # Quantas detecções encontradas
@@ -275,7 +257,8 @@ else:
         else:
             st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
     
-
+else:
+     st.write("Erro: Imagens de pele não foram encontradas, envie um novo vídeo")
 
 
 
