@@ -194,7 +194,6 @@ else:
         tem_pele = verifica_imagens_de_pele(uploaded_file)
     
     
-        RuntimeError: Array of average intensities is empty! Did you select or passas an argument a region of interest (roi)?
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
