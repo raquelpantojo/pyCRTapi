@@ -190,20 +190,21 @@ else:
         video_path = os.path.join(uploads_dir, uploaded_file.name)
         with open(video_path, "wb") as f:
             f.write(uploaded_file.read())  # Salva o arquivo enviado pelo usuário
+        
+        # Para usar o Yolov5
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
+            temp_filename = temp_file.name
+            temp_file.write(uploaded_file.read())
+        
         # Verifique as imagens de pele e processe o vídeo
         tem_pele = verifica_imagens_de_pele(uploaded_file)
     
     
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
-            st.video(video_path)
+            st.video(video_path, width=640) 
             
-            
-            # Para usar o Yolov5
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
-                temp_filename = temp_file.name
-                temp_file.write(uploaded_file.read())
-            
+           
             # Abra o vídeo com o caminho do arquivo temporário
             video_capture = cv2.VideoCapture(temp_filename)
 
