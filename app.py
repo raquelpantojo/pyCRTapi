@@ -194,7 +194,7 @@ else:
         tem_pele = verifica_imagens_de_pele(uploaded_file)
     
     
-
+        roi_pcrt = None  # Inicialize roi_pcrt fora do bloco if
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
@@ -256,8 +256,6 @@ else:
                 # Escreva o frame no vídeo de saída
                 out.write(detected_frame)
 
-            
-    
         
             st.write("Processando vídeo...")
             processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
