@@ -254,8 +254,8 @@ if opcao == "Enviar Vídeo Existente":
             # Certifique-se de apagar o arquivo temporário após o uso
         os.remove(temp_filename)        
             
-        else:
-            st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
+    else:
+        st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
     
 else:
      st.write("Erro: Imagens de pele não foram encontradas, envie um novo vídeo")
