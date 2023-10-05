@@ -1,5 +1,6 @@
 """
-atualizado dia 28-09
+atualizado dia 05-10
+Tentativa de adicionar o Yolo com a detecção pCRT.
 
 dicas: https://github.com/whitphx/streamlit-webrtc
 https://bgremoval.streamlit.app/
@@ -21,7 +22,7 @@ import torch
 import tempfile
 
 # Carregue o modelo YOLOv5 'finger.pt' localmente
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True,trust_repo=True)
 
 #model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
 
