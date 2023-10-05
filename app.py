@@ -194,7 +194,7 @@ else:
         tem_pele = verifica_imagens_de_pele(uploaded_file)
     
     
-        roi_pcrt = None  # Inicialize roi_pcrt fora do bloco if
+        RuntimeError: Array of average intensities is empty! Did you select or passas an argument a region of interest (roi)?
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
             st.video(video_path)
@@ -250,16 +250,16 @@ else:
                     st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
                     st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
                     
-            
+                    st.write("Processando vídeo...")
+                    processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
+                    st.write(f"Resultados do processamento: {processed_data}")
+                    
                     detections_found += 1
 
                 # Escreva o frame no vídeo de saída
                 out.write(detected_frame)
 
         
-            st.write("Processando vídeo...")
-            processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
-            st.write(f"Resultados do processamento: {processed_data}")
 
             # Capturar e exibir o quadro 50 no espaço YCrCb
             #cap = cv2.VideoCapture(video_path)
