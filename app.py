@@ -24,6 +24,9 @@ from io import BytesIO
 import torch
 import tempfile
 
+# Depuração 
+import pdb; pdb.set_trace()
+
 # Carregue o modelo YOLOv5 'finger.pt' localmente
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True,trust_repo=True)
 
