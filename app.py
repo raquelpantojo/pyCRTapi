@@ -169,25 +169,20 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 
 
 if opcao == "Enviar Vídeo Existente":
-    
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
-    if uploaded_file is not None:
-        video_path = os.path.join(uploads_dir, uploaded_file.name)
-        with open(video_path, "wb") as f:
-            f.write(uploaded_file.read())  # Salva o arquivo enviado pelo usuário
-        
-        # Para usar o Yolov5
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
-            temp_filename = temp_file.name
-            temp_file.write(uploaded_file.read())
-        
-        # Verifique as imagens de pele e processe o vídeo
-        tem_pele = verifica_imagens_de_pele(uploaded_file)
+    # Verifique as imagens de pele e processe o vídeo
+    tem_pele = verifica_imagens_de_pele(uploaded_file)
     
-    
-        if tem_pele == True:
-            st.write("Imagens de pele foram encontradas.")
-            #st.video(video_path) 
+    if tem_pele == True:
+        st.write("Imagens de pele foram encontradas.")
+        #st.video(video_path)
+        
+        if uploaded_file is not None:
+        
+            # Para usar o Yolov5
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
+                temp_filename = temp_file.name
+                temp_file.write(uploaded_file.read())
             
            
             # Abra o vídeo com o caminho do arquivo temporário
