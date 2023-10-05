@@ -198,8 +198,8 @@ else:
             
             # Para usar o Yolov5
             with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
-            temp_filename = temp_file.name
-            temp_file.write(video_file.read())
+                temp_filename = temp_file.name
+                temp_file.write(video_file.read())
             
             # Abra o vídeo com o caminho do arquivo temporário
             video_capture = cv2.VideoCapture(temp_filename)
