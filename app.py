@@ -7,6 +7,9 @@ https://bgremoval.streamlit.app/
 
 """
 
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 import streamlit as st
 import os
 import cv2
