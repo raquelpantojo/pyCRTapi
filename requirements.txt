@@ -42,3 +42,4 @@ psutil  # Utilização do sistema
 thop  # Cálculo de FLOPs
 ffmpeg-python
 wget
+setuptools
