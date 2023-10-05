@@ -207,16 +207,16 @@ if opcao == "Enviar Vídeo Existente":
         detected_frame = results.render()[0]
 
         # Se uma detecção foi encontrada, exiba o frame
-            if len(results.xyxy[0]) > 0:
-                detection = results.xyxy[0][0]  # Pegue a primeira detecção
-                xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
+        if len(results.xyxy[0]) > 0:
+            detection = results.xyxy[0][0]  # Pegue a primeira detecção
+            xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     
-                x1, y1, x2, y2 = map(int, detection[0:4])  
-                roi = frame[y1:y2, x1:x2]
-                roi_pcrt=(x1, y1, x2, y2)
+            x1, y1, x2, y2 = map(int, detection[0:4])  
+            roi = frame[y1:y2, x1:x2]
+            roi_pcrt=(x1, y1, x2, y2)
                     
-                st.image(roi,channels ="BGR")
-                st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+            st.image(roi,channels ="BGR")
+            st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                     
                     #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
                     
@@ -226,21 +226,21 @@ if opcao == "Enviar Vídeo Existente":
                     #x2 = int(x + w / 2)
                     #y2 = int(y + h / 2)
                     
-                st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
+            st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
+            st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
                     
-                st.write("Processando vídeo...")
-                processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
-                st.write(f"Resultados do processamento: {processed_data}")
+            st.write("Processando vídeo...")
+            processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
+            st.write(f"Resultados do processamento: {processed_data}")
                     
-                detections_found += 1
+            detections_found += 1
 
             # Escreva o frame no vídeo de saída
-            out.write(detected_frame)
+        out.write(detected_frame)
 
-            if roi is not None and roi.size > 0:
-                st.image(roi, channels="BGR")
-            else:
+        if roi is not None and roi.size > 0:
+            st.image(roi, channels="BGR")
+        else:
                 st.write("Dedo não encontrado")
 
             # Capturar e exibir o quadro 50 no espaço YCrCb
