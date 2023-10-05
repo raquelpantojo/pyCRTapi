@@ -167,10 +167,13 @@ def verifica_imagens_de_pele(video):
 st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
+if opcao == "Fazer um video":
+    st.write("Ainda não é possivel fazer imagens com sua câmera")
 
 if opcao == "Enviar Vídeo Existente":
+    uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
+    
     if uploaded_file is not None:
-        uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
         # Verifique as imagens de pele e processe o vídeo
         tem_pele = verifica_imagens_de_pele(uploaded_file)
         
