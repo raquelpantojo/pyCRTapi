@@ -27,7 +27,7 @@ def process_video(video_path,roi):
         pcrt.showPCRTPlot()
     
         # Exibir o gráfico no Streamlit
-        st.pyplot(fig)
+        st.pyplot()
     else:
         st.write("Não há dados suficientes para gerar o gráfico.")
     
