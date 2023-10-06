@@ -21,14 +21,13 @@ def process_video(video_path,roi):
     pycrtvalue = pcrt.pCRT[0].__round__(2) 
     pycrtincert = pcrt.pCRT[1].__round__(2) 
     
-     # Verificar se há dados para o gráfico
-    if pcrt:
-        # Gerar gráficos
-        pcrt.showPCRTPlot()
+       # Gerar gráficos
+    pcrt.showPCRTPlot()
     
-        # Exibir o gráfico no Streamlit
-        st.pyplot()
-    else:
-        st.write("Não há dados suficientes para gerar o gráfico.")
+    # Pegar a figura gerada pelo PCRT
+    fig = plt.gcf()
+
+    # Exibir o gráfico no Streamlit
+    st.pyplot(fig)
     
     return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
