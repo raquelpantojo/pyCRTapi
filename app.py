@@ -273,4 +273,9 @@ with expander:
     st.markdown(
         """
     [Visite nosso site](https://sites.usp.br/photobiomed/)
+    [Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)
         """)
+    
+    
+    
+    
