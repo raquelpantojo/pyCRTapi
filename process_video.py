@@ -21,15 +21,14 @@ def process_video(video_path,roi):
     pycrtvalue = pcrt.pCRT[0].__round__(2) 
     pycrtincert = pcrt.pCRT[1].__round__(2) 
     
-    # Save the values to the txt file
-    #result_txt_path = "runs/detect/processed_result.txt"
-    #with open(result_txt_path, 'w') as file:
-    #    file.write(f'pCRT: {pycrtvalue}, incerteza: {pycrtincert}')
-
-    # Gerar gráficos
-    fig, ax = pcrt.showPCRTPlot()
+     # Verificar se há dados para o gráfico
+    if pcrt.data.any():
+        # Gerar gráficos
+        fig, ax = pcrt.showPCRTPlot()
     
-    # Exibir o gráfico no Streamlit
-    st.pyplot(fig)
+        # Exibir o gráfico no Streamlit
+        st.pyplot(fig)
+    else:
+        st.write("Não há dados suficientes para gerar o gráfico.")
     
     return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
