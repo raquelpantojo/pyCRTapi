@@ -22,7 +22,7 @@ def process_video(video_path,roi):
     pycrtincert = pcrt.pCRT[1].__round__(2) 
     
      # Verificar se há dados para o gráfico
-    if pcrt.data.any():
+    if pcrt:
         # Gerar gráficos
         fig, ax = pcrt.showPCRTPlot()
     
