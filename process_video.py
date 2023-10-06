@@ -23,4 +23,19 @@ def process_video(video_path,roi):
     #with open(result_txt_path, 'w') as file:
     #    file.write(f'pCRT: {pycrtvalue}, incerteza: {pycrtincert}')
 
+        # Gerar gráficos
+    pcrt.showAvgIntensPlot(data)
+    pcrt.showRCRTPlot(data)
+
+    # Criar uma coluna para os gráficos
+    col1, col2 = st.beta_columns(2)
+
+    # Adicionar o primeiro gráfico na primeira coluna
+    with col1:
+        st.pyplot()
+
+    # Adicionar o segundo gráfico na segunda coluna
+    with col2:
+        st.pyplot()
+    
     return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
