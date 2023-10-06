@@ -24,8 +24,8 @@ def process_video(video_path,roi):
     #    file.write(f'pCRT: {pycrtvalue}, incerteza: {pycrtincert}')
 
         # Gerar gráficos
-    pcrt.showAvgIntensPlot(data)
-    pcrt.showRCRTPlot(data)
+    pcrt.showAvgIntensPlot()
+    pcrt.showRCRTPlot()
 
     # Criar uma coluna para os gráficos
     col1, col2 = st.beta_columns(2)
