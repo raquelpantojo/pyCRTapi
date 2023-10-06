@@ -65,8 +65,6 @@ st.markdown("""
     </style>
     <div class="container">
         <div class="title">Cálculo do Tempo de Enchimento capilar</div>
-        <div class="menu">
-            <a href="#sobre" id="sobre-link">Sobre</a>
         </div>
     </div>
 """, unsafe_allow_html=True)
