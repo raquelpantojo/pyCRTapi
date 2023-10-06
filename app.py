@@ -1,7 +1,12 @@
 """
 atualizado dia 06-10
-14h24
-Tentativa de adicionar o Yolo com a detecção pCRT.
+16h35 Tentativa de adicionar o Yolo com a detecção pCRT --- ok
+:: Próximos passos:
+:: Descobrir como reduzir o tamanho da imagem.
+:: Ver a possibilidade de reduzir o tamanho da imagem com detecção.
+:: Testar os valores de CRT com roi manual e roi do Yolo.
+
+
 -
 dicas: https://github.com/whitphx/streamlit-webrtc
 https://bgremoval.streamlit.app/
