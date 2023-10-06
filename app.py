@@ -1,7 +1,8 @@
 """
-atualizado dia 05-10
+atualizado dia 06-10
+14h24
 Tentativa de adicionar o Yolo com a detecção pCRT.
-
+-
 dicas: https://github.com/whitphx/streamlit-webrtc
 https://bgremoval.streamlit.app/
 
