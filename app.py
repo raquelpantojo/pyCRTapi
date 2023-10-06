@@ -255,7 +255,7 @@ else:
 
 
 
-st.write("Desenvolvido por")
+#st.write("Desenvolvido por")
 # Ancoragem para a seção "Sobre"
 st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
 
@@ -270,10 +270,10 @@ with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
 
     # Adicione as imagens nas colunas
     with col1:
-        st.image("logo_lab.png", use_column_width=True, width=40)
+        st.image("logo_lab.png", use_column_width=True, width=50)
 
     with col2:
-        st.image("logo_usp.png", use_column_width=True, width=40)
+        st.image("logo_usp.png", use_column_width=True, width=50)
 
     # Adicionar um link no sidebar
     st.markdown(
