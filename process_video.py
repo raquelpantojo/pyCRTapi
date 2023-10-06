@@ -3,6 +3,7 @@
 from pyCRT import PCRT
 import streamlit as st
 import numpy as np
+import matplotlib.pyplot as plt
 
 def process_video(video_path,roi):
     # Process the video using pyCRT
@@ -25,10 +26,10 @@ def process_video(video_path,roi):
     #with open(result_txt_path, 'w') as file:
     #    file.write(f'pCRT: {pycrtvalue}, incerteza: {pycrtincert}')
 
-        # Gerar gráficos
-    #pcrt.showAvgIntensPlot()
-    pcrt.showPCRTPlot()
-   
-    st.pyplot()
+    # Gerar gráficos
+    fig, ax = pcrt.showPCRTPlot()
+    
+    # Exibir o gráfico no Streamlit
+    st.pyplot(fig)
     
     return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
