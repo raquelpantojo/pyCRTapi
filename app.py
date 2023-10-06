@@ -255,24 +255,27 @@ else:
 
 
 
-# Ancoragem para a seção "Sobre"
-st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
+# Crie um botão ou link para expandir a seção "Sobre"
+if st.button("Clique para ver mais sobre nós"):
+    # Se o botão/link for clicado, expanda a seção "Sobre"
+    # Ancoragem para a seção "Sobre"
+    st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
 
-# Conteúdo da seção "Sobre"
-st.write("Desenvolvido por:")
+    # Conteúdo da seção "Sobre"
+    st.write("Desenvolvido por:")
 
-# Crie duas colunas para exibir as imagens lado a lado
-col1, col2 = st.beta_columns(2)
+    # Crie duas colunas para exibir as imagens lado a lado
+    col1, col2 = st.beta_columns(2)
 
-# Adicione as imagens nas colunas
-with col1:
-    st.image("logo_lab.png", use_column_width=True, width=50)
+    # Adicione as imagens nas colunas
+    with col1:
+        st.image("logo_lab.png", use_column_width=True, width=50)
 
-with col2:
-    st.image("logo_usp.png", use_column_width=True, width=50)
+    with col2:
+        st.image("logo_usp.png", use_column_width=True, width=50)
 
-# Adicionar um link no sidebar
-st.markdown(
-    """
-[Visite nosso site](https://sites.usp.br/photobiomed/)
-    """)
+    # Adicionar um link no sidebar
+    st.markdown(
+        """
+    [Visite nosso site](https://sites.usp.br/photobiomed/)
+        """)
