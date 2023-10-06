@@ -24,7 +24,7 @@ def process_video(video_path,roi):
      # Verificar se há dados para o gráfico
     if pcrt:
         # Gerar gráficos
-        fig, ax = pcrt.showPCRTPlot()
+        pcrt.showPCRTPlot()
     
         # Exibir o gráfico no Streamlit
         st.pyplot(fig)
