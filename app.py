@@ -255,13 +255,10 @@ else:
 
 
 
-# Crie um botão ou link para expandir a seção "Sobre"
-if st.button("Clique para ver mais sobre nós"):
-    # Se o botão/link for clicado, expanda a seção "Sobre"
-    # Ancoragem para a seção "Sobre"
-    st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
-
-    # Conteúdo da seção "Sobre"
+# Crie um expander para a seção "Sobre"
+expander = st.beta_expander("Sobre")
+# Conteúdo da seção "Sobre" dentro do expander
+with expander:
     st.write("Desenvolvido por:")
 
     # Crie duas colunas para exibir as imagens lado a lado
