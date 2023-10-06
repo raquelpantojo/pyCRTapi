@@ -44,7 +44,7 @@ def detect_finger(image):
 # Define o layout da página
 st.set_page_config(
     page_title="Cálculo do Tempo de Enchimento capilar",
-    page_icon=":health_worker:",
+    page_icon=":health:",
     layout="wide"
 )
 
@@ -254,7 +254,7 @@ else:
 
 
 # Crie um expander para a seção "Sobre"
-expander = st.beta_expander("Sobre")
+expander = st.beta_expander("+ Informações:")
 # Conteúdo da seção "Sobre" dentro do expander
 with expander:
     st.write("Desenvolvido por:")
