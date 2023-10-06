@@ -254,7 +254,7 @@ else:
 
 
 # Crie um expander para a seção "Sobre"
-expander = st.beta_expander("+ Informações:")
+expander = st.expander("+ Informações:")
 # Conteúdo da seção "Sobre" dentro do expander
 with expander:
     st.write("Desenvolvido por:")
