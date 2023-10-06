@@ -172,10 +172,10 @@ if opcao == "Fazer um video":
 
 if opcao == "Enviar Vídeo Existente":
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
-    tem_pele = verifica_imagens_de_pele(uploaded_file)
     
     if uploaded_file is not None:
         # Verifique as imagens de pele e processe o vídeo
+        tem_pele = verifica_imagens_de_pele(uploaded_file)
         
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
@@ -205,53 +205,42 @@ if opcao == "Enviar Vídeo Existente":
                 if not ret:
                     break
 
-            # Realize a detecção no frame
-            results = detect_finger(frame)
-            detected_frame = results.render()[0]
+                # Realize a detecção no frame
+                results = detect_finger(frame)
+                detected_frame = results.render()[0]
 
-            # Se uma detecção foi encontrada, exiba o frame
-            if len(results.xyxy[0]) > 0:
-                detection = results.xyxy[0][0]  # Pegue a primeira detecção
-                xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
-                        
-                x1, y1, x2, y2 = map(int, detection[0:4])  
-                roi = frame[y1:y2, x1:x2]
-                roi_pcrt=(x1, y1, x2, y2)
-                        
-                st.image(roi,channels ="BGR")
-                st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
-                        
-                        #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
-                        
-                        # Converte para números inteiros
-                        #x1 = int(x - w / 2)
-                        #y1 = int(y - h / 2)
-                        #x2 = int(x + w / 2)
-                        #y2 = int(y + h / 2)
-                        
-                st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
-                        
-                st.write("Processando vídeo...")
-                processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
-                st.write(f"Resultados do processamento: {processed_data}")
-                        
-                detections_found += 1
+                # Se uma detecção foi encontrada, exiba o frame
+                if len(results.xyxy[0]) > 0:
+                    detection = results.xyxy[0][0]  # Pegue a primeira detecção
+                    xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
+                            
+                    x1, y1, x2, y2 = map(int, detection[0:4])  
+                    roi = frame[y1:y2, x1:x2]
+                    roi_pcrt=(x1, y1, x2, y2)
+                            
+                    st.image(roi,channels ="BGR")
+                    st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+                            
+                            #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
+                            
+                            # Converte para números inteiros
+                            #x1 = int(x - w / 2)
+                            #y1 = int(y - h / 2)
+                            #x2 = int(x + w / 2)
+                            #y2 = int(y + h / 2)
+                            
+                    st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
+                    st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
+                            
+                    st.write("Processando vídeo...")
+                    processed_data = process_video(video_path,roi_pcrt)  # Processar o vídeo
+                    st.write(f"Resultados do processamento: {processed_data}")
+                            
+                    detections_found += 1
 
-                # Escreva o frame no vídeo de saída
-            out.write(detected_frame)
+                    # Escreva o frame no vídeo de saída
+                out.write(detected_frame)
 
-            if roi is not None and roi.size > 0:
-                st.image(roi, channels="BGR")
-            else:
-                    st.write("Dedo não encontrado")
-
-                # Capturar e exibir o quadro 50 no espaço YCrCb
-                #cap = cv2.VideoCapture(video_path)
-                #frame_number = 50  # Número do quadro desejado
-                #cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
-                #ret, frame = cap.read()
-                # Fecha o vídeo de saída
             out.release()
 
                 # Certifique-se de apagar o arquivo temporário após o uso
