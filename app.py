@@ -221,13 +221,14 @@ if opcao == "Enviar Vídeo Existente":
                     # Redimensione a imagem para o tamanho desejado
                     new_width = 200  # Largura desejada
                     new_height = 150  # Altura desejada
-                    image_resized = cv2.resize(roi, (new_width, new_height))
+                    roi_resized = cv2.resize(roi, (new_width, new_height))
 
                     # Exiba a imagem redimensionada
-                    st.image(image_resized, channels="BGR")        
-                    st.image(roi,channels ="BGR")
-                    
-                    st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+                    st.image(roi_resized, channels="BGR")        
+                    #st.image(roi,channels ="BGR")
+                    detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
+                    #st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+                    st.image(detected_frame_resized, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                             
                             #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
                             
