@@ -172,10 +172,10 @@ if opcao == "Fazer um video":
 
 if opcao == "Enviar Vídeo Existente":
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
+    tem_pele = verifica_imagens_de_pele(uploaded_file)
     
     if uploaded_file is not None:
         # Verifique as imagens de pele e processe o vídeo
-        tem_pele = verifica_imagens_de_pele(uploaded_file)
         
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
