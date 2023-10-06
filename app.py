@@ -43,7 +43,7 @@ def detect_finger(image):
 
 # Define o layout da página
 st.set_page_config(
-    page_title="Cálculo do Tempo de Enchimento capilar",
+    page_title=":raised_hand_with_fingers_splayed: Cálculo do Tempo de Enchimento capilar",
     page_icon=":health:",
     layout="wide"
 )
