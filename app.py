@@ -231,8 +231,8 @@ if opcao == "Enviar Vídeo Existente":
                     roi_resized = cv2.resize(roi, (new_width, new_height))
                     st.image(roi_resized, channels="BGR")     
                     # Converte para OpenCV
-                    xo1 = int(((x1 + x2) / 2)-20)
-                    yo1 = int(((y1 + y2) / 2)-20)
+                    xo1 = int(((x1 + x2) / 2)-50)
+                    yo1 = int(((y1 + y2) / 2)-50)
                     xo2 = int((x2 - x1))
                     yo2 = int((y2 - y1))
                     roi_pcrt=(xo1, yo1, xo2, yo2) 
