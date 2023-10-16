@@ -228,7 +228,7 @@ if opcao == "Enviar Vídeo Existente":
                     y_max_pixel = int(y_max * height)
                     
                             
-                    #x1, y1, x2, y2 = map(int, detection[0:4])  
+                    x1, y1, x2, y2 = map(int, detection[0:4])  
                     roi = frame[y1:y2, x1:x2]
                     roi_pcrt=(x1, y1, x2, y2)
                             
