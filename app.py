@@ -226,15 +226,15 @@ if opcao == "Enviar Vídeo Existente":
                        
                                                 
                     # Redimensione a imagem para o tamanho desejado
-                    new_width = 200  # Largura desejada
+                    new_width = 150  # Largura desejada
                     new_height = 150  # Altura desejada
                     roi_resized = cv2.resize(roi, (new_width, new_height))
                     st.image(roi_resized, channels="BGR")     
                     # Converte para OpenCV
-                    xo1 = int((x1 + x2) / 2)
-                    yo1 = int((y1 + y2) / 2)
-                    xo2 = int((x2 - x1)-20)
-                    yo2 = int((y2 - y1)-20)
+                    xo1 = int(((x1 + x2) / 2)-20)
+                    yo1 = int(((y1 + y2) / 2)-20)
+                    xo2 = int((x2 - x1))
+                    yo2 = int((y2 - y1))
                     roi_pcrt=(xo1, yo1, xo2, yo2) 
                     #roi_pcrt=(230, 275, 97, 137)  
 
