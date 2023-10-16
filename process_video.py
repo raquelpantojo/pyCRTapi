@@ -5,7 +5,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-def process_video(video_path,roi,xo1, yo1, xo2, yo2):
+def process_video(video_path,roi):
     # Process the video using pyCRT
     #roi=(872, 477, 195, 205)
     #roi=(872, 477, 195, 205)
