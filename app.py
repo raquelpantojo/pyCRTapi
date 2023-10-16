@@ -217,34 +217,39 @@ if opcao == "Enviar Vídeo Existente":
                     detection = results.xyxy[0][0]  # Pegue a primeira detecção
                     #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     #x_min, y_min, x_max, y_max = detection[0:4]
-                    
-
-                            
+                        
                     x1, y1, x2, y2 = map(int, detection[0:4])  
+                    # Exiba a imagem redimensionada
                     roi = frame[y1:y2, x1:x2]
-                    #roi_pcrt=(x1, y1, x2, y2)
-                    st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")      
+                    
+                
+                       
                                                 
                     # Redimensione a imagem para o tamanho desejado
                     new_width = 200  # Largura desejada
                     new_height = 150  # Altura desejada
                     roi_resized = cv2.resize(roi, (new_width, new_height))
-
+                    st.image(roi_resized, channels="BGR")     
+                    # Converte para OpenCV
+                    xo1 = int((x1 + x2) / 2)
+                    yo1 = int((y1 + y2) / 2)
+                    xo2 = int(x2 - x1)
+                    yo2 = int(y2 - y1)
+                    roi_pcrt=(xo1, yo1, xo2, yo2)    
+                    roi = frame[y1:y2, x1:x2]
                     # Exiba a imagem redimensionada
-                    st.image(roi_resized, channels="BGR")        
+                    roiopencv = frame[y1:y2, x1:x2]
+                    roi_resized_opencv = cv2.resize(roiopencv, (new_width, new_height)) 
+                    st.image(roi_resized_opencv, channels="BGR")     
+                       
                     #st.image(roi,channels ="BGR")
                     detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
                     #st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                     st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                              
-                    # Converte para números inteiros
-                    xo1 = int((x1 + x2) / 2)
-                    yo1 = int((y1 + y2) / 2)
-                    xo2 = int(x2 - x1)
-                    yo2 = int(y2 - y1)
-                    roi_pcrt=(xo1, yo1, xo2, yo2)     
-                    #t.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                    
+                   
+        
+                    st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")   
                     st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
                            
                     st.write("Processando vídeo...")
