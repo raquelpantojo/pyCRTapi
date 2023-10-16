@@ -236,15 +236,18 @@ if opcao == "Enviar Vídeo Existente":
                     xo2 = int(x2 - x1)
                     yo2 = int(y2 - y1)
                     roi_pcrt=(xo1, yo1, xo2, yo2)    
-                    roi = frame[y1:y2, x1:x2]
+    
+    
+                     # Redimensione a imagem para o tamanho desejado
+                    new_width = 200  # Largura desejada
+                    new_height = 200  # Altura desejada
                     # Exiba a imagem redimensionada
                     roiopencv = frame[yo1:yo2, xo1:xo2]
                     roi_resized_opencv = cv2.resize(roiopencv, (new_width, new_height)) 
                     st.image(roi_resized_opencv, channels="BGR")     
                        
-                    #st.image(roi,channels ="BGR")
+                    
                     detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
-                    #st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                     st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                              
                    
