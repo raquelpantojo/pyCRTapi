@@ -218,15 +218,7 @@ if opcao == "Enviar Vídeo Existente":
                     #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     x_min, y_min, x_max, y_max = detection[0:4]
 
-                    # Suponha que você tenha a imagem original 'image' carregada com OpenCV
-                    height, width, _ = frame.shape
 
-                    # Converta as coordenadas normalizadas para coordenadas de pixel
-                    x_min_pixel = int(x_min * width)
-                    y_min_pixel = int(y_min * height)
-                    x_max_pixel = int(x_max * width)
-                    y_max_pixel = int(y_max * height)
-                    
                             
                     x1, y1, x2, y2 = map(int, detection[0:4])  
                     roi = frame[y1:y2, x1:x2]
@@ -248,14 +240,14 @@ if opcao == "Enviar Vídeo Existente":
                             #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
                             
                             # Converte para números inteiros
-                            #x1 = int(x - w / 2)
-                            #y1 = int(y - h / 2)
-                            #x2 = int(x + w / 2)
-                            #y2 = int(y + h / 2)
+                            x1 = int(x1 + x2 / 2)
+                            y1 = int(y1 + y2 / 2)
+                            x2 = int(x2 - x1)
+                            y2 = int(y2 - y1)
                             
                     #t.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                    st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
-                    st.write(f"OpenCV x: {x_min_pixel}, y: {y_min_pixel}, x2: {x_max_pixel}, y2: {y_max_pixel}")
+                    st.write(f"Yolov5 x: {x_min}, y: {ymin}, x2: {x_max}, y2: {y_max}")
+                    st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
                            
                     st.write("Processando vídeo...")
                     processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
