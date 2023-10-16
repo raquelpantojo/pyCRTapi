@@ -52,19 +52,22 @@ def process_video(video_path,roi):
    frame_rate = int(cap.get(cv2.CAP_PROP_FPS))
    time_values = [i / frame_rate for i in range(frame_count)]
 
+   # Criar uma figura do Matplotlib
+   fig, ax = plt.subplots()
+
    # Plote os valores médios ao longo do tempo
-   plt.plot(time_values, mean_red_values, 'r', label='Canal R')
-   plt.plot(time_values, mean_green_values, 'g', label='Canal G')
-   plt.plot(time_values, mean_blue_values, 'b', label='Canal B')
+   ax.plot(time_values, mean_red_values, 'r', label='Canal R')
+   ax.plot(time_values, mean_green_values, 'g', label='Canal G')
+   ax.plot(time_values, mean_blue_values, 'b', label='Canal B')
 
    # Configuração do gráfico
-   plt.xlabel('Tempo (s)')
-   plt.ylabel('Valor Médio')
-   plt.title('Valores Médios dos Canais RGB ao Longo do Tempo')
-   plt.legend()
+   ax.set_xlabel('Tempo (s)')
+   ax.set_ylabel('Valor Médio')
+   ax.set_title('Valores Médios dos Canais RGB ao Longo do Tempo')
+   ax.legend()
 
-   # Exibir o gráfico
-   st.pyplot()
+   # Exibir o gráfico no Streamlit
+   st.pyplot(fig)
 
    # Libere a captura de vídeo
    cap.release()
