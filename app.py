@@ -236,14 +236,12 @@ if opcao == "Enviar Vídeo Existente":
                     detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
                     #st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                     st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
-                            
-                            #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
-                            
-                            # Converte para números inteiros
-                            x1 = int(x1 + x2 / 2)
-                            y1 = int(y1 + y2 / 2)
-                            x2 = int(x2 - x1)
-                            y2 = int(y2 - y1)
+                             
+                    # Converte para números inteiros
+                    x1 = int(x1 + x2 / 2)
+                    y1 = int(y1 + y2 / 2)
+                    x2 = int(x2 - x1)
+                    y2 = int(y2 - y1)
                             
                     #t.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
                     st.write(f"Yolov5 x: {x_min}, y: {ymin}, x2: {x_max}, y2: {y_max}")
