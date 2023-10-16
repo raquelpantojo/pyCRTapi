@@ -216,14 +216,14 @@ if opcao == "Enviar Vídeo Existente":
                 if len(results.xyxy[0]) > 0:
                     detection = results.xyxy[0][0]  # Pegue a primeira detecção
                     #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
-                    x_min, y_min, x_max, y_max = detection[0:4]
-
+                    #x_min, y_min, x_max, y_max = detection[0:4]
+                    
 
                             
                     x1, y1, x2, y2 = map(int, detection[0:4])  
                     roi = frame[y1:y2, x1:x2]
                     roi_pcrt=(x1, y1, x2, y2)
-                            
+                    st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")      
                                                 
                     # Redimensione a imagem para o tamanho desejado
                     new_width = 200  # Largura desejada
@@ -244,7 +244,7 @@ if opcao == "Enviar Vídeo Existente":
                     y2 = int(y2 - y1)
                             
                     #t.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                    st.write(f"Yolov5 x: {x_min}, y: {ymin}, x2: {x_max}, y2: {y_max}")
+                    
                     st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
                            
                     st.write("Processando vídeo...")
