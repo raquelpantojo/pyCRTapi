@@ -39,7 +39,7 @@ tensorboard>=2.4.1
 # Extras --------------------------------------
 ipython  # Para uso interativo no notebook
 psutil  # Utilização do sistema
-thop  # Cálculo de FLOPs
+thop==0.0.31.post2005241907  # Cálculo de FLOPs
 ffmpeg-python
 wget
 setuptools
