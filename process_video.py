@@ -18,23 +18,22 @@ def process_video(video_path,roi,xo1, yo1, xo2, yo2):
     # Redimensione a imagem para o tamanho desejado
    new_width = 200  # Largura desejada
    new_height = 200  # Altura desejada
-                    # Exiba a imagem redimensionada
+   # Exiba a imagem redimensionada
    roiopencv = frame[yo1:yo2, xo1:xo2]
    roi_resized_opencv = cv2.resize(roiopencv, (new_width, new_height)) 
    st.image(roi_resized_opencv, channels="BGR") 
     
-    # Get the values you want from the pcrt object
+   # Get the values you want from the pcrt object
+   pycrtvalue = pcrt.pCRT[0].__round__(2) 
+   pycrtincert = pcrt.pCRT[1].__round__(2) 
     
-    pycrtvalue = pcrt.pCRT[0].__round__(2) 
-    pycrtincert = pcrt.pCRT[1].__round__(2) 
+   # Gerar gráficos
+   pcrt.showPCRTPlot()
     
-       # Gerar gráficos
-    pcrt.showPCRTPlot()
-    
-    # Pegar a figura gerada pelo PCRT
-    fig = plt.gcf()
+   # Pegar a figura gerada pelo PCRT
+   fig = plt.gcf()
 
-    # Exibir o gráfico no Streamlit
-    st.pyplot(fig)
+   # Exibir o gráfico no Streamlit
+   st.pyplot(fig)
     
-    return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
+   return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
