@@ -222,7 +222,7 @@ if opcao == "Enviar Vídeo Existente":
                             
                     x1, y1, x2, y2 = map(int, detection[0:4])  
                     roi = frame[y1:y2, x1:x2]
-                    roi_pcrt=(x1, y1, x2, y2)
+                    #roi_pcrt=(x1, y1, x2, y2)
                     st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")      
                                                 
                     # Redimensione a imagem para o tamanho desejado
@@ -242,7 +242,7 @@ if opcao == "Enviar Vídeo Existente":
                     yo1 = int((y1 + y2) / 2)
                     xo2 = int(x2 - x1)
                     yo2 = int(y2 - y1)
-                            
+                    roi_pcrt=(xo1, yo1, xo2, yo2)     
                     #t.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
                     
                     st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
