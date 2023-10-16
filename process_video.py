@@ -64,7 +64,7 @@ def process_video(video_path,roi):
    plt.legend()
 
    # Exibir o gráfico
-   plt.show()
+   st.pyplot()
 
    # Libere a captura de vídeo
    cap.release()
