@@ -246,7 +246,7 @@ if opcao == "Enviar Vídeo Existente":
                     st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
                            
                     st.write("Processando vídeo...")
-                    processed_data = process_video(temp_filename,roi_pcrt,xo1, yo1, xo2, yo2)  # Processar o vídeo
+                    processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
                     st.write(f"Resultados do processamento: {processed_data}")
                             
                     detections_found += 1
