@@ -233,9 +233,9 @@ if opcao == "Enviar Vídeo Existente":
                     # Converte para OpenCV
                     xo1 = int((x1 + x2) / 2)
                     yo1 = int((y1 + y2) / 2)
-                    xo2 = int((x2 - x1))
-                    yo2 = int((y2 - y1))
-                    #roi_pcrt=(xo1, yo1, xo2, yo2) 
+                    xo2 = int((x2 - x1)-20)
+                    yo2 = int((y2 - y1)-20)
+                    roi_pcrt=(xo1, yo1, xo2, yo2) 
                     #roi_pcrt=(230, 275, 97, 137)  
 
                        
