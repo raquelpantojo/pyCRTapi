@@ -238,14 +238,14 @@ if opcao == "Enviar Vídeo Existente":
                     st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
                              
                     # Converte para números inteiros
-                    x1 = int(x1 + x2 / 2)
-                    y1 = int(y1 + y2 / 2)
-                    x2 = int(x2 - x1)
-                    y2 = int(y2 - y1)
+                    xo1 = int(x1 + x2 / 2)
+                    yo1 = int(y1 + y2 / 2)
+                    xo2 = int(x2 - x1)
+                    yo2 = int(y2 - y1)
                             
                     #t.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
                     
-                    st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
+                    st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
                            
                     st.write("Processando vídeo...")
                     processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
