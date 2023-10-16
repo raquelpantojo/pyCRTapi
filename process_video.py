@@ -4,6 +4,7 @@ from pyCRT import PCRT
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
 
 def process_video(video_path,roi):
     # Process the video using pyCRT
