@@ -19,13 +19,14 @@ def process_video(video_path,roi):
    pycrtvalue = pcrt.pCRT[0].__round__(2) 
    pycrtincert = pcrt.pCRT[1].__round__(2) 
     
-   # Gerar gráficos
-   pcrt.showPCRTPlot()
+   # Gerar gráfico do canal verde
+    plt.figure()
+    plt.imshow(pcrt.video.data[:, :, 1], cmap='Greens')  # Use the green channel for the image
+    plt.colorbar()
+    plt.title('Green Channel')
     
-   # Pegar a figura gerada pelo PCRT
-   fig = plt.gcf()
-
-   # Exibir o gráfico no Streamlit
-   st.pyplot(fig)
+    # Exibir o gráfico no Streamlit
+    st.pyplot()
+   
     
    return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
