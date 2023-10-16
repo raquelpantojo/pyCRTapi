@@ -219,7 +219,7 @@ if opcao == "Enviar Vídeo Existente":
                     x_min, y_min, x_max, y_max = detection[0:4]
 
                     # Suponha que você tenha a imagem original 'image' carregada com OpenCV
-                    height, width, _ = image.shape
+                    height, width, _ = frame.shape
 
                     # Converta as coordenadas normalizadas para coordenadas de pixel
                     x_min_pixel = int(x_min * width)
