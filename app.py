@@ -49,24 +49,17 @@ st.set_page_config(
 )
 
 
-# Streamlit Sidebar
-menu_title = "pCRT"
-option1 = "Calculo do CRT"
-option2 = "Resultados"
-menu_icon = "menu-up"
-icon1 = "activity"
-icon2 = "clipboard-data"
+options = ["Calculo do CRT", "Resultados"]
+icons = ["activity", "clipboard-data"]
 
-with st.sidebar:
-    option = st.radio(
-        menu_title,
-        [option1, option2],
-        icons=[icon1, icon2],
-        menu_icon=menu_icon,
-        index=0,
-        key="menu_options"
-    )
+import streamlit as st
 
+# Define a lista de opções e ícones correspondentes
+options = ["Calculo do CRT", "Resultados"]
+icons = ["activity", "clipboard-data"]
+
+# Use st.selectbox para exibir as opções
+selected_option = st.selectbox("Selecione uma opção:", options, format_func=lambda option: f"<i class='fas fa-{icons[options.index(option)]}'></i> {option}", key="menu_options")
 
 
 
@@ -164,7 +157,10 @@ st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
 #if opcao == "Fazer um video":
 #    st.write("Ainda não é possivel fazer imagens com sua câmera")
 
-if opcao == option1:
+# Exiba o ícone selecionado usando HTML
+if selected_option == "Calculo do CRT":
+  
+#if opcao == option1:
     #"Enviar Vídeo Existente":
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
     
