@@ -32,11 +32,13 @@ import tempfile
 
 
 # YOLOv5 Model Loading
-@st.cache(allow_output_mutation=True)
-def detect_finger():
-    return torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True, trust_repo=True)
+# Função para realizar a detecção da ponta do dedo
+# Carregue o modelo YOLOv5 'finger.pt' localmente
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True,trust_repo=True)
+def detect_finger(image):
+    results = model(image)
 
-model = load_yolov5_model()
+    return results
 
 
 # Streamlit Configuration
