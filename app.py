@@ -182,7 +182,7 @@ if opcao == "Enviar Vídeo Existente":
         
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
-            #st.video(video_path)
+            st.write("Aguarde alguns minutos até carregar seu video")
             
             # Para usar o Yolov5
             with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
