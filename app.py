@@ -20,95 +20,53 @@ import os
 import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
-import threading
 
 from PIL import Image
 from io import BytesIO
+
+from collections.abc import Iterable
 
 ## yolo v5
 import torch
 import tempfile
 
 
-class Model:
-    menuTitle = "pCRT"
-    option1 = "Calculo do CRT"
-    option2 = "Resultados"
-  
+# YOLOv5 Model Loading
+@st.cache(allow_output_mutation=True)
+def detect_finger():
+    return torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True, trust_repo=True)
 
-    menuIcon = "menu-up"
-    icon1 = "activity"
-    icon2 = "clipboard-data"
-    
-
-def view(model):
-    with st.sidebar:
-        menuItem = option_menu(model.menuTitle,
-                               [model.option1, model.option2],
-                               icons=[model.icon1, model.icon2],
-                               menu_icon=model.menuIcon,
-                               default_index=0,
-                               styles={
-                                   "container": {"padding": "5!important", "background-color": "#fafafa"},
-                                   "icon": {"color": "black", "font-size": "25px"},
-                                   "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px",
-                                                "--hover-color": "#eee"},
-                                   "nav-link-selected": {"background-color": "#037ffc"},
-                               })
+model = load_yolov5_model()
 
 
-
-
-
-# Depuração 
-#import pdb; pdb.set_trace()
-
-# Carregue o modelo YOLOv5 'finger.pt' localmente
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True,trust_repo=True)
-
-#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
-
-
-# Função para realizar a detecção em um frame
-def detect_finger(image):
-    results = model(image)
-    return results
-
-
-
-# Define o layout da página
+# Streamlit Configuration
 st.set_page_config(
-    page_title=":raised_hand_with_fingers_splayed: Cálculo do Tempo de Enchimento capilar",
+    page_title="Cálculo do Tempo de Enchimento Capilar",
     page_icon=":health:",
     layout="wide"
 )
 
-# Use HTML para criar um layout personalizado
-st.markdown("""
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .title {
-            font-size: 36px;
-        }
-        .menu {
-            margin-top: 25px;
-            margin-right: 20px;
-        }
-    </style>
-    <div class="container">
-        <div class="title">Cálculo do Tempo de Enchimento capilar</div>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+
+# Streamlit Sidebar
+menu_title = "pCRT"
+option1 = "Calculo do CRT"
+option2 = "Resultados"
+menu_icon = "menu-up"
+icon1 = "activity"
+icon2 = "clipboard-data"
+
+with st.sidebar:
+    option = st.radio(
+        menu_title,
+        [option1, option2],
+        icons=[icon1, icon2],
+        menu_icon=menu_icon,
+        index=0,
+        key="menu_options"
+    )
 
 
 
-# Configurar diretório de upload
-uploads_dir = "uploads"
-os.makedirs(uploads_dir, exist_ok=True)
 
 
 
@@ -204,7 +162,8 @@ opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Exi
 if opcao == "Fazer um video":
     st.write("Ainda não é possivel fazer imagens com sua câmera")
 
-if opcao == "Enviar Vídeo Existente":
+if opcao == option1:
+    #"Enviar Vídeo Existente":
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
     
     if uploaded_file is not None:
@@ -301,28 +260,13 @@ else:
 
 # Crie um expander para a seção "Sobre"
 expander = st.expander("+ Informações:")
-# Conteúdo da seção "Sobre" dentro do expander
 with expander:
     st.write("Desenvolvido por:")
+    st.image("logo_lab.png", use_column_width=True, width=50)
+    st.image("logo_usp.png", use_column_width=True, width=50)
 
-    # Crie duas colunas para exibir as imagens lado a lado
-    col1, col2 = st.beta_columns(2)
-
-    # Adicione as imagens nas colunas
-    with col1:
-        st.image("logo_lab.png", use_column_width=True, width=50)
-
-    with col2:
-        st.image("logo_usp.png", use_column_width=True, width=50)
-
-    # Adicionar um link no sidebar
-    st.markdown(
-        """
-    [Visite nosso site](https://sites.usp.br/photobiomed/)
-    [Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)
-        """)
-    
-    
+st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
+st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
     
     
 view(Model())
