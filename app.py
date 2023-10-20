@@ -29,6 +29,37 @@ from io import BytesIO
 import torch
 import tempfile
 
+
+class Model:
+    menuTitle = "pCRT"
+    option1 = "Calculo do CRT"
+    option2 = "Resultados"
+  
+
+    menuIcon = "menu-up"
+    icon1 = "activity"
+    icon2 = "clipboard-data"
+    
+
+def view(model):
+    with st.sidebar:
+        menuItem = option_menu(model.menuTitle,
+                               [model.option1, model.option2],
+                               icons=[model.icon1, model.icon2],
+                               menu_icon=model.menuIcon,
+                               default_index=0,
+                               styles={
+                                   "container": {"padding": "5!important", "background-color": "#fafafa"},
+                                   "icon": {"color": "black", "font-size": "25px"},
+                                   "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px",
+                                                "--hover-color": "#eee"},
+                                   "nav-link-selected": {"background-color": "#037ffc"},
+                               })
+
+
+
+
+
 # Depuração 
 #import pdb; pdb.set_trace()
 
@@ -294,3 +325,4 @@ with expander:
     
     
     
+view(Model())
