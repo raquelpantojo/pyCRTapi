@@ -37,6 +37,16 @@ from collections.abc import Iterable
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
 
 
+
+
+# Streamlit Configuration
+st.set_page_config(
+    page_title="Cálculo do Tempo de Enchimento Capilar",
+    page_icon=":health:",
+    layout="wide"
+)
+
+
 st.markdown(
     """
     <style>
@@ -46,14 +56,6 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True,
-)
-
-
-# Streamlit Configuration
-st.set_page_config(
-    page_title="Cálculo do Tempo de Enchimento Capilar",
-    page_icon=":health:",
-    layout="wide"
 )
 
 
