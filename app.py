@@ -55,7 +55,7 @@ import streamlit as st
 
 # Define a dictionary that maps options to their corresponding icons
 options = {
-    "Calculo do CRT": "<i class='fas fa-tasks'></i> Calculo do CRT"}
+    "Calculo do CRT": "Calculo do CRT"}
 
 # Use st.selectbox to display the options with icons
 selected_option = st.sidebar.selectbox("Selecione uma opção:", list(options.keys()), format_func=lambda option: options[option], key="menu_options")
