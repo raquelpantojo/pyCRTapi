@@ -47,16 +47,16 @@ st.set_page_config(
 )
 
 
-st.markdown(
-    """
-    <style>
-    .sidebar .sidebar-content {
-        background-color: #808000; /* Olive Green color code */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+# Define a custom theme for the sidebar
+custom_sidebar = """
+.sidebar {
+    background-color: #808000; /* Olive Green color code */
+}
+"""
+
+# Apply the custom theme
+st.markdown(f'<style>{custom_sidebar}</style>', unsafe_allow_html=True)
+
 
 
 options = ["Calculo do CRT", "Resultados"]
