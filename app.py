@@ -1,67 +1,65 @@
 """
-atualizado dia 28-09
+atualizado dia 06-10
+16h35 Tentativa de adicionar o Yolo com a detecção pCRT --- ok
+:: Próximos passos:
+:: Reduzir o tamanho da imagem com detecção.
+:: Testar os valores de CRT com roi manual e roi do Yolo.
 
+
+-
 dicas: https://github.com/whitphx/streamlit-webrtc
 https://bgremoval.streamlit.app/
 
 """
+
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import streamlit as st
 import os
 import cv2
 import numpy as np
 from process_video import process_video  # Importe a função process_video do seu módulo
-import threading
 
 from PIL import Image
 from io import BytesIO
 
+from collections.abc import Iterable
+
 ## yolo v5
-#import torch
-#import tempfile
+import torch
+import tempfile
 
+
+# YOLOv5 Model Loading
+# Função para realizar a detecção da ponta do dedo
 # Carregue o modelo YOLOv5 'finger.pt' localmente
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
+#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
 
-#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
+    return results
 
 
-
-# Define o layout da página
+# Streamlit Configuration
 st.set_page_config(
-    page_title="Cálculo do Tempo de Enchimento capilar",
-    page_icon=":health_worker:",
+    page_title="Cálculo do Tempo de Enchimento Capilar",
+    page_icon=":health:",
     layout="wide"
 )
 
-# Use HTML para criar um layout personalizado
-st.markdown("""
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .title {
-            font-size: 36px;
-        }
-        .menu {
-            margin-top: 25px;
-            margin-right: 20px;
-        }
-    </style>
-    <div class="container">
-        <div class="title">Cálculo do Tempo de Enchimento capilar</div>
-        <div class="menu">
-            <a href="#sobre" id="sobre-link">Sobre</a>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+
+options = ["Calculo do CRT", "Resultados"]
+icons = ["activity", "clipboard-data"]
+
+import streamlit as st
+
+# Define a lista de opções e ícones correspondentes
+options = ["Calculo do CRT", "Resultados"]
+icons = ["activity", "clipboard-data"]
+
+# Use st.selectbox para exibir as opções
+selected_option = st.selectbox("Selecione uma opção:", options, format_func=lambda option: f"<i class='fas fa-{icons[options.index(option)]}'></i> {option}", key="menu_options")
 
 
-
-# Configurar diretório de upload
-uploads_dir = "uploads"
-os.makedirs(uploads_dir, exist_ok=True)
 
 
 
@@ -152,158 +150,118 @@ def verifica_imagens_de_pele(video):
 
 # Interface do Streamlit
 st.write("Carregue um arquivo de vídeo para realizar o teste do CRT.")
-opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
+#opcao = st.radio("Selecione uma opção:", ("Fazer um video", "Enviar Vídeo Existente"))
 
+#if opcao == "Fazer um video":
+#    st.write("Ainda não é possivel fazer imagens com sua câmera")
 
-if opcao == "Fazer um video":
-        # Fazer video:
-        camera_index = st.camera_input("Fazer um vídeo")  # Pode escolher entre diferentes câmeras
-        cap = cv2.VideoCapture(camera_index)
-        if cap.isOpened():
-            ret, frame = cap.read()
-            if ret:
-                st.image(frame, channels="BGR", use_column_width=True)
-        cap.release()
-
-        if st.button("Iniciar Gravação", key=f"start_button_{camera_index}"):
-            output_filename = f"video_capturado_camera_{camera_index}.avi"
-            capturar_video(camera_index, output_filename)  # Inicie a gravação
-
-            # Após a gravação, exiba o vídeo gravado
-            st.write("Vídeo Capturado:")
-            st.video(output_filename)
-            
-
-else:
+# Exiba o ícone selecionado usando HTML
+if selected_option == "Calculo do CRT":
+  
+#if opcao == option1:
+    #"Enviar Vídeo Existente":
     uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
+    
     if uploaded_file is not None:
-        video_path = os.path.join(uploads_dir, uploaded_file.name)
-        with open(video_path, "wb") as f:
-            f.write(uploaded_file.read())  # Salva o arquivo enviado pelo usuário
         # Verifique as imagens de pele e processe o vídeo
         tem_pele = verifica_imagens_de_pele(uploaded_file)
         
         if tem_pele == True:
             st.write("Imagens de pele foram encontradas.")
-            st.video(video_path)
+            st.write("Aguarde alguns minutos até carregar seu video")
             
-
-            st.write("Processando vídeo...")
-            processed_data = process_video(video_path)  # Processar o vídeo
-            st.write(f"Resultados do processamento: {processed_data}")
-
-            # Capturar e exibir o quadro 50 no espaço YCrCb
-            cap = cv2.VideoCapture(video_path)
-            frame_number = 50  # Número do quadro desejado
-            cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
-            ret, frame = cap.read()
-            
-            """
-            if uploaded_file is not None:
-                # Salve o vídeo em um arquivo temporário
-                with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
-                    temp_filename = temp_file.name
-                    temp_file.write(uploaded_file.read())
-
-                # Abra o vídeo com o caminho do arquivo temporário
-                video_capture = cv2.VideoCapture(temp_filename)
-
-                # Inicialize variáveis
-                detections_found = 0  # Quantas detecções encontradas
-                target_detections = 3  # Quantidade de detecções desejadas
-
-                # Abra o vídeo de saída para salvar as detecções
-                frame_width = int(video_capture.get(3))
-                frame_height = int(video_capture.get(4))
-                out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width, frame_height))
-
-                # Loop para processar cada frame do vídeo
-                while detections_found < target_detections:
-                    ret, frame = video_capture.read()
-                    if not ret:
-                        break
-
-                    # Realize a detecção no frame
-                    results = detect_finger(frame)
-                    detected_frame = results.render()[0]
-
-                    # Se uma detecção foi encontrada, exiba o frame
-                    if len(results.xyxy[0]) > 0:
-                        detection = results.xyxy[0][0]  # Pegue a primeira detecção
-                        xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
-                        
-                        x1, y1, x2, y2 = map(int, detection[0:4])  
-                        roi = frame[y1:y2, x1:x2]
-                        
-                        st.image(roi,channels ="BGR")
-                        st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
-                        
-                        #st.write(f"x: {x}, y: {y}, largura (w): {w}, altura (h): {h}")
-                        
-                        # Converte para números inteiros
-                        #x1 = int(x - w / 2)
-                        #y1 = int(y - h / 2)
-                        #x2 = int(x + w / 2)
-                        #y2 = int(y + h / 2)
-                        
-                        st.write(f"YOLO xmin: {xmin}, ymin: {ymin}, xmax: {xmax}, ymax: {ymax}")
-                        st.write(f"OpenCV x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")
-                        
+            # Para usar o Yolov5
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_file:
+                temp_filename = temp_file.name
+                temp_file.write(uploaded_file.read())
                 
-                        detections_found += 1
+            
+            # Abra o vídeo com o caminho do arquivo temporário
+            video_capture = cv2.VideoCapture(temp_filename)
+
+            # Inicialize variáveis
+            detections_found = 0  # Quantas detecções encontradas
+            target_detections = 1  # Quantidade de detecções desejadas
+
+            # Abra o vídeo de saída para salvar as detecções
+            frame_width = int(video_capture.get(3))
+            frame_height = int(video_capture.get(4))
+            out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc('M','J','P','G'), 30, (frame_width, frame_height))
+
+            # Loop para processar cada frame do vídeo
+            while detections_found < target_detections:
+                ret, frame = video_capture.read()
+                if not ret:
+                    break
+
+                # Realize a detecção no frame
+                results = detect_finger(frame)
+                detected_frame = results.render()[0]
+
+                # Se uma detecção foi encontrada, exiba o frame
+                if len(results.xyxy[0]) > 0:
+                    detection = results.xyxy[0][0]  # Pegue a primeira detecção
+                    #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
+                    #x_min, y_min, x_max, y_max = detection[0:4]
+                        
+                    x1, y1, x2, y2 = map(int, detection[0:4])  
+                    # Exiba a imagem redimensionada
+                    roi = frame[y1:y2, x1:x2]
+                    
+                
+                       
+                                                
+                    # Redimensione a imagem para o tamanho desejado
+                    new_width = 150  # Largura desejada
+                    new_height = 150  # Altura desejada
+                    roi_resized = cv2.resize(roi, (new_width, new_height))
+                    st.image(roi_resized, channels="BGR")     
+                    # Converte para OpenCV
+                    xo1 = int(((x1 + x2) / 2)-50)
+                    yo1 = int(((y1 + y2) / 2)-50)
+                    xo2 = int((x2 - x1))
+                    yo2 = int((y2 - y1))
+                    roi_pcrt=(xo1, yo1, xo2, yo2) 
+                    #roi_pcrt=(230, 275, 97, 137)  
+
+                       
+                    
+                    #detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
+                    st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
+
+                    st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")   
+                    st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
+                           
+                    st.write("Processando vídeo...")
+                    processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
+                    st.write(f"Resultados do processamento: {processed_data}")
+                            
+                    detections_found += 1
 
                     # Escreva o frame no vídeo de saída
-                    out.write(detected_frame)
+                out.write(detected_frame)
 
-                # Fecha o vídeo de saída
-                out.release()
-                     # Certifique-se de apagar o arquivo temporário após o uso
-            os.remove(temp_filename)
-            """
-            
+            out.release()
 
-
-       
-
-
-
-            # Remover o fundo do vídeo
-            #output_video_path = "video_com_fundo_removido"  # Especifique o caminho de saída desejado
-            #remove_image(frame)  # Chame a função para remover o fundo do vídeo
-
-            #st.write("Vídeo com fundo removido:")
-            #st.image(output_video_path)
-                    
-            
+                # Certifique-se de apagar o arquivo temporário após o uso
+            os.remove(temp_filename)        
+                
         else:
             st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
-    
+        
+else:
+     st.write("Erro: Imagens de pele não foram encontradas, envie um novo vídeo")
 
 
 
-
-st.write("Desenvolvido por")
-# Ancoragem para a seção "Sobre"
-st.markdown("<a id='sobre'></a>", unsafe_allow_html=True)
-
-
-# Conteúdo da seção "Sobre"
-with st.markdown("<a id='sobre'></a>", unsafe_allow_html=True):
-#with st.beta_expander("Sobre", expanded=False):
+# Crie um expander para a seção "Sobre"
+expander = st.expander("+ Informações:")
+with expander:
     st.write("Desenvolvido por:")
+    st.image("logo_lab.png", use_column_width=True, width=50)
+    st.image("logo_usp.png", use_column_width=True, width=50)
 
-    # Crie duas colunas para exibir as imagens lado a lado
-    col1, col2 = st.beta_columns(2)
-
-    # Adicione as imagens nas colunas
-    with col1:
-        st.image("logo_lab.png", use_column_width=True, width=40)
-
-    with col2:
-        st.image("logo_usp.png", use_column_width=True, width=40)
-
-    # Adicionar um link no sidebar
-    st.markdown(
-        """
-    [Visite nosso site](https://sites.usp.br/photobiomed/)
-    """)
+st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
+st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
+    
+    

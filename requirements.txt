@@ -1,3 +1,6 @@
+# requirements
+# Usage: pip install -r requirements.txt
+
 pandas
 seaborn
 matplotlib
@@ -5,6 +8,7 @@ streamlit
 aiortc
 google_crc32c
 pyCRT==2.0.3
+
 opencv-python-headless
 opencv_contrib_python
 opencv-python
@@ -35,6 +39,7 @@ tensorboard>=2.4.1
 # Extras --------------------------------------
 ipython  # Para uso interativo no notebook
 psutil  # Utilização do sistema
-thop  # Cálculo de FLOPs
+thop==0.0.31.post2005241907  # Cálculo de FLOPs
 ffmpeg-python
 wget
+setuptools
