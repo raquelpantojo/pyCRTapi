@@ -52,12 +52,16 @@ icons = ["activity", "clipboard-data"]
 
 import streamlit as st
 
-# Define a lista de opções e ícones correspondentes
-options = ["Calculo do CRT", "Resultados"]
-icons = ["activity", "clipboard-data"]
 
-# Use st.selectbox para exibir as opções
-selected_option = st.selectbox("Selecione uma opção:", options, format_func=lambda option: f"<i class='fas fa-{icons[options.index(option)]}'></i> {option}", key="menu_options")
+# Define a dictionary that maps options to their corresponding icons
+options = {
+    "Calculo do CRT": "<i class='fas fa-activity'></i> Calculo do CRT",
+    "Resultados": "<i class='fas fa-clipboard-data'></i> Resultados"
+}
+
+# Use st.selectbox to display the options with icons
+selected_option = st.selectbox("Selecione uma opção:", list(options.keys()), format_func=lambda option: options[option], key="menu_options")
+
 
 
 
