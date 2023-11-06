@@ -34,9 +34,9 @@ import tempfile
 # YOLOv5 Model Loading
 # Função para realizar a detecção da ponta do dedo
 # Carregue o modelo YOLOv5 'finger.pt' localmente
-#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
 
-    return results
+
 
 
 # Streamlit Configuration
@@ -58,8 +58,6 @@ icons = ["activity", "clipboard-data"]
 
 # Use st.selectbox para exibir as opções
 selected_option = st.selectbox("Selecione uma opção:", options, format_func=lambda option: f"<i class='fas fa-{icons[options.index(option)]}'></i> {option}", key="menu_options")
-
-
 
 
 
