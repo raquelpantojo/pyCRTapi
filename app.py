@@ -229,22 +229,21 @@ if selected_option == "Calculo do CRT":
                     #detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
                     st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
 
-                    st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")   
-                    st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
+                    #st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")   
+                    #st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
                            
                     st.write("Processando vídeo...")
                     processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
                     #st.write(f"Resultados do processamento: {processed_data}")
 
+                
                     if processed_data is not None:
-                        st.header("Processing Results")
+                        st.header("Resultado")
 
                         # Create an expander to show the processed data
-                        with st.expander("Processed Data"):
+                        with st.expander("Resultado do pCRT"):
                             for key, value in processed_data.items():
                                 st.write(f"{key}: {value}")
-
-
 
 
                     detections_found += 1
