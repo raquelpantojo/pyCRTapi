@@ -21,7 +21,7 @@ from io import BytesIO
 #import tempfile
 
 # Carregue o modelo YOLOv5 'finger.pt' localmente
-#model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
 
 #model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', trust_repo='check')
 
