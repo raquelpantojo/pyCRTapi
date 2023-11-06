@@ -50,7 +50,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .sidebar {
+    .sidebar .sidebar-content {
         background-color: #808000; /* Olive Green color code */
     }
     </style>
