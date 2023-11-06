@@ -60,7 +60,7 @@ options = {
 }
 
 # Use st.selectbox to display the options with icons
-selected_option = st.selectbox("Selecione uma opção:", list(options.keys()), format_func=lambda option: options[option], key="menu_options")
+selected_option = st.sidebar.selectbox("Selecione uma opção:", list(options.keys()), format_func=lambda option: options[option], key="menu_options")
 
 
 
