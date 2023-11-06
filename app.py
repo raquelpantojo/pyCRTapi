@@ -38,6 +38,17 @@ model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_r
 
 
 
+# Set the background color to Olive Green using custom CSS
+st.markdown(
+    """
+    <style>
+    .sidebar .sidebar-content {
+        background-color: #808000; /* Olive Green color code */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Streamlit Configuration
 st.set_page_config(
