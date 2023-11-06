@@ -42,10 +42,11 @@ model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_r
 # Streamlit Configuration
 st.set_page_config(
     page_title="Cálculo do Tempo de Enchimento Capilar",
-    page_icon=":health:",
     layout="wide"
 )
 
+# Set the title of your Streamlit app
+st.title("Cálculo do Tempo de Enchimento Capilar")
 
 # Define a custom theme for the sidebar
 custom_sidebar = """
