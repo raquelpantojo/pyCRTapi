@@ -236,8 +236,19 @@ if selected_option == "Calculo do CRT":
                            
                     st.write("Processando vídeo...")
                     processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
-                    st.write(f"Resultados do processamento: {processed_data}")
-                            
+                    #st.write(f"Resultados do processamento: {processed_data}")
+
+                    if processed_data is not None:
+                        st.header("Processing Results")
+
+                        # Create an expander to show the processed data
+                        with st.expander("Processed Data"):
+                            for key, value in processed_data.items():
+                                st.write(f"{key}: {value}")
+
+
+
+
                     detections_found += 1
 
                     # Escreva o frame no vídeo de saída
