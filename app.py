@@ -29,7 +29,7 @@ from collections.abc import Iterable
 ## yolo v5
 import torch
 import tempfile
-
+from collections.abc import Iterable
 
 # YOLOv5 Model Loading
 # Função para realizar a detecção da ponta do dedo
