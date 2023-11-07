@@ -34,7 +34,7 @@ from collections.abc import Iterable
 # YOLOv5 Model Loading
 # Função para realizar a detecção da ponta do dedo
 # Carregue o modelo YOLOv5 'finger.pt' localmente
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True)
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True,trust_repo=True)
 
 
 
