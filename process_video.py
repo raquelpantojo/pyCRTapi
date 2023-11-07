@@ -71,6 +71,10 @@ def process_video(video_path,roi):
     # Ajuste o tamanho da figura no Streamlit
    st.set_option('deprecation.showPyplotGlobalUse', False)
    st.pyplot(fig, clear_figure=True, use_container_width=True)
+
+   # Redimensione o tamanho da figura para 30% da tela
+   st.markdown('<style>div.Widget.row-widget.stRadio > div{flex-direction:row;}</style>',unsafe_allow_html=True)
+   st.write('<div><style>div.stImage {width: 30% !important;}</style></div>', unsafe_allow_html=True)
    # Libere a captura de vídeo
    cap.release()
 
