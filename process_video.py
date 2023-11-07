@@ -53,7 +53,7 @@ def process_video(video_path,roi):
    time_values = [i / frame_rate for i in range(frame_count)]
 
    # Criar uma figura do Matplotlib
-   fig, ax = plt.subplots(figsize=(8, 4))
+   fig, ax = plt.subplots(figsize=(5, 4))
 
    # Plote os valores médios ao longo do tempo
    ax.plot(time_values, mean_red_values, 'r', label='Canal R')
