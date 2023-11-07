@@ -74,7 +74,7 @@ def process_video(video_path,roi):
 
    # Redimensione o tamanho da figura para 30% da tela
    st.markdown('<style>div.Widget.row-widget.stRadio > div{flex-direction:row;}</style>',unsafe_allow_html=True)
-   st.write('<div><style>div.stImage {width: 10% !important;}</style></div>', unsafe_allow_html=True)
+   st.write('<div><style>div.stImage {width: 30% !important;}</style></div>', unsafe_allow_html=True)
    # Libere a captura de vídeo
    cap.release()
 
