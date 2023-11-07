@@ -67,8 +67,10 @@ def process_video(video_path,roi):
    ax.legend()
 
    # Exibir o gráfico no Streamlit
-   st.pyplot(fig)
-
+   #st.pyplot(fig)
+    # Ajuste o tamanho da figura no Streamlit
+   st.set_option('deprecation.showPyplotGlobalUse', False)
+   st.pyplot(fig, clear_figure=True, use_container_width=True)
    # Libere a captura de vídeo
    cap.release()
 
