@@ -247,14 +247,14 @@ if selected_option == "Calculo do CRT":
                     processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
                     #st.write(f"Resultados do processamento: {processed_data}")
 
-                    col1,col2 = st.columns((2))
+                    col1,col2 = st.columns((1))
                     
-                    for pycrtvalue, pycrtvalue in processed_data.items():
+                    for pycrtvalue, pycrtincert in processed_data.items():
                                     #st.write(f"{key}: {value}")
                         with col1:
                             st.write("Valor de pCRT:", pycrtvalue)
                         with col2:
-                                st.write("Incerteza:", pycrtvalue)
+                            st.write("Incerteza:", pycrtincert)
 
                     
                     st.write("")  # Linha em branco para adicionar espaço
