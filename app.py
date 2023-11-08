@@ -285,8 +285,10 @@ with expander:
     st.write("Desenvolvido por:")
     st.image("logo_lab.png", use_column_width=True, width=50)
     st.image("logo_usp.png", use_column_width=True, width=50)
-
+    
+st.write("\n\n\n\n\n\n\n\n\n")  
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
+st.write("\n\n\n\n\n\n\n\n\n")  
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
     
     
