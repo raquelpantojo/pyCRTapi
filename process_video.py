@@ -74,10 +74,10 @@ def process_video(video_path,roi):
    ax.legend()
    
    # Salve o gráfico como um arquivo temporário no formato GIF
-   with BytesIO() as buffer:
-      plt.savefig(buffer, format="png")
-      buffer.seek(0)
-      st.image(buffer, format="image/png", use_column_width=True)
+   #with BytesIO() as buffer:
+   #   plt.savefig(buffer, format="png")
+   #   buffer.seek(0)
+   #   st.image(buffer, format="image/png", use_column_width=True)
    # Exibir o gráfico no Streamlit
    #st.pyplot(fig)
     # Ajuste o tamanho da figura no Streamlit
