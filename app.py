@@ -312,7 +312,7 @@ footer_style = """
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: olive;
+    background-color: #556B2F;
     color: white;
     padding: 10px;
     text-align: center;
@@ -322,11 +322,13 @@ footer_style = """
 expander = st.expander("+ Informações:")
 with expander:
     st.write("Desenvolvido por:")
-    st.image(logo_lab, use_column_width=True, width=50)
-    st.image(logo_usp, use_column_width=True, width=50)
+    st.image(logo_lab, use_column_width=True, width=25)
+    st.image(logo_usp, use_column_width=True, width=20)
 
-# Aplica o estilo ao rodapé
+
 st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
+st.write("Versão 0.4")
+
 
 
 
