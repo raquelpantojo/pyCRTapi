@@ -247,7 +247,7 @@ if selected_option == "Calculo do CRT":
                     processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
                     #st.write(f"Resultados do processamento: {processed_data}")
 
-                    col1,col2 = st.columns((1))
+                    col1,col2 = st.columns((2))
                     
                     for pycrtvalue, pycrtincert in processed_data.items():
                                     #st.write(f"{key}: {value}")
