@@ -73,13 +73,17 @@ def process_video(video_path,roi):
    #ax.set_title('Valores Médios dos Canais RGB ao Longo do Tempo')
    ax.legend()
    
-
+   # Salve o gráfico como um arquivo temporário no formato GIF
+   with BytesIO() as buffer:
+      plt.savefig(buffer, format="png")
+      buffer.seek(0)
+      st.image(buffer, format="image/png", use_column_width=True)
    # Exibir o gráfico no Streamlit
    #st.pyplot(fig)
     # Ajuste o tamanho da figura no Streamlit
-   st.image(fig, use_column_width=True)
-   st.set_option('deprecation.showPyplotGlobalUse', False)
-   st.pyplot(fig, clear_figure=True, use_container_width=True)
+   #st.image(fig, use_column_width=True)
+   #st.set_option('deprecation.showPyplotGlobalUse', False)
+   #st.pyplot(fig, clear_figure=True, use_container_width=True)
 
    # Redimensione o tamanho da figura para 30% da tela
    #st.markdown('<style>div.Widget.row-widget.stRadio > div{flex-direction:row;}</style>',unsafe_allow_html=True)
