@@ -301,12 +301,18 @@ st.write("")
 
 #"""
 
-# Define o estilo para o rodapé
+# Redimensiona as imagens
+logo_lab = Image.open("logo_lab.png")
+logo_usp = Image.open("logo_usp.png")
+logo_lab = logo_lab.resize((50, 50))
+logo_usp = logo_usp.resize((50, 50))
+
+# Define o estilo para o rodapé com fundo verde oliva
 footer_style = """
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #333;
+    background-color: olive;
     color: white;
     padding: 10px;
     text-align: center;
@@ -316,11 +322,12 @@ footer_style = """
 expander = st.expander("+ Informações:")
 with expander:
     st.write("Desenvolvido por:")
-    st.image("logo_lab.png", use_column_width=True, width=25)
-    st.image("logo_usp.png", use_column_width=True, width=25)
+    st.image(logo_lab, use_column_width=True, width=50)
+    st.image(logo_usp, use_column_width=True, width=50)
 
 # Aplica o estilo ao rodapé
 st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
+
 
 
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
