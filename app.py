@@ -316,8 +316,8 @@ footer_style = """
 expander = st.expander("+ Informações:")
 with expander:
     st.write("Desenvolvido por:")
-    st.image("logo_lab.png", use_column_width=True, width=50)
-    st.image("logo_usp.png", use_column_width=True, width=50)
+    st.image("logo_lab.png", use_column_width=True, width=25)
+    st.image("logo_usp.png", use_column_width=True, width=25)
 
 # Aplica o estilo ao rodapé
 st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
