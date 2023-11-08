@@ -250,7 +250,7 @@ if selected_option == "Calculo do CRT":
                     pycrtvalue, pycrtincert= process_video(temp_filename,roi_pcrt)
                     
                     # Depois de obter pycrtvalue e pycrtincert
-                    if pycrtvalue > 5 and pycrtincert > 2:
+                    if pycrtvalue > 5 and pycrtincert > 2 and pycrtincert/pycrtvalue < 0.10:
                         st.warning("Os valores do pCRT são maiores do que o esperado. \n Por favor, faça outro vídeo.")
 
                     #st.write(f"Resultados do processamento: {processed_data}")
@@ -282,7 +282,7 @@ else:
 
 
 
-st.write("\n\n\n\n\n\n\n\n\n")  
+st.markdown("<br>" * 5)
 
 # Crie um expander para a seção "Sobre"
 expander = st.expander("+ Informações:")
@@ -291,9 +291,8 @@ with expander:
     st.image("logo_lab.png", use_column_width=True, width=50)
     st.image("logo_usp.png", use_column_width=True, width=50)
     
-st.write("\n\n\n\n\n\n\n\n\n")  
+st.markdown("<br>" * 5) 
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
-st.write("\n\n\n\n\n\n\n\n\n")  
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
     
     
