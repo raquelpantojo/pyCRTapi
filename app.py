@@ -210,8 +210,8 @@ if selected_option == "Calculo do CRT":
                 detected_frame = results.render()[0]
 
                 # Se uma detecção foi encontrada, exiba o frame
-                if len(results.xyxy[0]) >= 10:
-                    detection = results.xyxy[0][9]  # Pegue a primeira detecção
+                if len(results.xyxy[0]) >= 5:
+                    detection = results.xyxy[0][4]  # Pegue a primeira detecção
                     #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     #x_min, y_min, x_max, y_max = detection[0:4]
                         
