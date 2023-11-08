@@ -252,7 +252,7 @@ if selected_option == "Calculo do CRT":
                     # Depois de obter pycrtvalue e pycrtincert
                     if pycrtvalue > 5 and pycrtincert > 2 and pycrtincert/pycrtvalue < 0.10:
                         st.warning("Os valores do pCRT são maiores do que o esperado. \n Por favor, faça outro vídeo.")
-                    else
+                    else:
                         st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ± <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
 
 
