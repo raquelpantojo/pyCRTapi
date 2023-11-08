@@ -253,7 +253,9 @@ if selected_option == "Calculo do CRT":
                     #for pycrtvalue, pycrtincert in processed_data.items():
                                     #st.write(f"{key}: {value}")
                     with col1:
-                        st.write("Valor de pCRT:", pycrtvalue)
+                        font_size = "24px"
+                        st.write(f'<span style="font-size: {font_size}">Valor de pCRT: {pycrtvalue}</span>', unsafe_allow_html=True)
+                        #st.write("Valor de pCRT:", pycrtvalue)
                     with col2:
                         st.write("Incerteza:", pycrtincert)
 
