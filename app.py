@@ -254,7 +254,7 @@ if selected_option == "Calculo do CRT":
                                     #st.write(f"{key}: {value}")
                     with col1:
                         st.write("Valor de pCRT:", pycrtvalue)
-                     with col2:
+                    with col2:
                         st.write("Incerteza:", pycrtincert)
 
                     
