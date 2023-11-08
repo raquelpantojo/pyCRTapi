@@ -79,11 +79,11 @@ def process_video(video_path,roi):
    #   buffer.seek(0)
    #   st.image(buffer, format="image/png", use_column_width=True)
    # Exibir o gráfico no Streamlit
-   st.pyplot(fig)
+   #st.pyplot(fig)
     # Ajuste o tamanho da figura no Streamlit
-   #st.image(fig, use_column_width=True)
-   #st.set_option('deprecation.showPyplotGlobalUse', False)
-   #st.pyplot(fig, clear_figure=True, use_container_width=True)
+   st.image(fig, use_column_width=True)
+   st.set_option('deprecation.showPyplotGlobalUse', False)
+   st.pyplot(fig, clear_figure=True, use_container_width=True)
 
    # Redimensione o tamanho da figura para 30% da tela
    #st.markdown('<style>div.Widget.row-widget.stRadio > div{flex-direction:row;}</style>',unsafe_allow_html=True)
