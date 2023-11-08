@@ -192,7 +192,7 @@ if selected_option == "Calculo do CRT":
 
             # Inicialize variáveis
             detections_found = 0  # Quantas detecções encontradas
-            target_detections = 1  # Quantidade de detecções desejadas
+            target_detections = 2  # Quantidade de detecções desejadas
 
             # Abra o vídeo de saída para salvar as detecções
             frame_width = int(video_capture.get(3))
@@ -254,7 +254,7 @@ if selected_option == "Calculo do CRT":
                                     #st.write(f"{key}: {value}")
                     #with col1:
                     
-                    st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ±: <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
+                    st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ± <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
 
 
                     detections_found += 1
@@ -275,9 +275,7 @@ else:
 
 
 
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
+st.write("\n\n\n\n\n\n\n\n\n")  
 
 # Crie um expander para a seção "Sobre"
 expander = st.expander("+ Informações:")
