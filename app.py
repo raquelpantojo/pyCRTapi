@@ -239,7 +239,7 @@ if selected_option == "Calculo do CRT":
                     
                     #detected_frame_resized =cv2.resize(detected_frame, (new_width, new_height))
                     #st.image(detected_frame, caption=f"Detecção {detections_found + 1}", use_column_width=True,channels ="BGR")
-                    st.image(detected_frame, caption=f"Detecção {detections_found + 1}", width=detected_frame.shape[1] // 2, channels="BGR")
+                    st.image(detected_frame, caption=f"Detecção {detections_found + 1}", width=detected_frame.shape[1] // 4, channels="BGR")
 
 
                     #st.write(f"Yolov5 x: {x1}, y: {y1}, x2: {x2}, y2: {y2}")   
