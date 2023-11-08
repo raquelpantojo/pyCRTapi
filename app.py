@@ -248,11 +248,12 @@ if selected_option == "Calculo do CRT":
                     #st.write(f"Resultados do processamento: {processed_data}")
 
                     col1,col2 = st.columns((2))
-                    
-                    with col1:
-                        st.write("Valor de pCRT:", pycrtvalue)
-                    with col2:
-                        st.write("Incerteza:", pycrtincert)
+                    for pycrtvalue, pycrtvalue in processed_data.items():
+                                #st.write(f"{key}: {value}")
+                        with col1:
+                            st.write("Valor de pCRT:", pycrtvalue)
+                        with col2:
+                            st.write("Incerteza:", pycrtvalue)
 
                     
                     st.write("")  # Linha em branco para adicionar espaço
@@ -264,8 +265,7 @@ if selected_option == "Calculo do CRT":
 
                         # Create an expander to show the processed data
                         with st.expander("Resultado do pCRT"):
-                            for key, value in processed_data.items():
-                                st.write(f"{key}: {value}")
+                            
                         
 
 
