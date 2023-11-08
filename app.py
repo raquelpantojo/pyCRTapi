@@ -212,15 +212,11 @@ if selected_option == "Calculo do CRT":
                 # Se uma detecção foi encontrada, exiba o frame
                 if len(results.xyxy[0]) > 0:
                     detection = results.xyxy[0][0]  # Pegue a primeira detecção
-                    #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
-                    #x_min, y_min, x_max, y_max = detection[0:4]
                         
                     x1, y1, x2, y2 = map(int, detection[0:4])  
                     # Exiba a imagem redimensionada
                     roi = frame[y1:y2, x1:x2]
                     
-                
-                       
                                                 
                     # Redimensione a imagem para o tamanho desejado
                     new_width = 150  # Largura desejada
@@ -253,7 +249,7 @@ if selected_option == "Calculo do CRT":
                     if pycrtvalue > 5 and pycrtincert > 2 and pycrtincert/pycrtvalue < 0.10:
                         st.warning("Os valores do pCRT são maiores do que o esperado. \n Por favor, faça outro vídeo.")
                     else:
-                        st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ± <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
+                        st.write(f'<span style="font-size: 24px;">Resultado do teste do CRT: \n pCRT(s): <b>{pycrtvalue}</b> ± <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
 
 
                     detections_found += 1
@@ -274,9 +270,24 @@ else:
 
 
 
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
+st.write("")  
 
 
 # Crie um expander para a seção "Sobre"
@@ -285,19 +296,6 @@ with expander:
     st.write("Desenvolvido por:")
     st.image("logo_lab.png", use_column_width=True, width=50)
     st.image("logo_usp.png", use_column_width=True, width=50)
-    
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-st.write("")  # Linha em branco para adicionar espaço
-
 
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
