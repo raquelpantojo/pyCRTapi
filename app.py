@@ -244,17 +244,18 @@ if selected_option == "Calculo do CRT":
                     #st.write(f"OpenCV x: {xo1}, y: {yo1}, x2: {xo2}, y2: {yo2}")
                            
                     st.write("Processando vídeo...")
-                    processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
+                    #processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
+                    pycrtvalue, pycrtincert= process_video(temp_filename,roi_pcrt)
                     #st.write(f"Resultados do processamento: {processed_data}")
 
                     col1,col2 = st.columns((2))
                     
-                    for pycrtvalue, pycrtincert in processed_data.items():
+                    #for pycrtvalue, pycrtincert in processed_data.items():
                                     #st.write(f"{key}: {value}")
-                        with col1:
-                            st.write("Valor de pCRT:", pycrtvalue)
-                        with col2:
-                            st.write("Incerteza:", pycrtincert)
+                    with col1:
+                        st.write("Valor de pCRT:", pycrtvalue)
+                     with col2:
+                        st.write("Incerteza:", pycrtincert)
 
                     
                     st.write("")  # Linha em branco para adicionar espaço
