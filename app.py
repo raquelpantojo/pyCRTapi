@@ -282,7 +282,10 @@ else:
 
 
 
-st.markdown("<br>" * 5)
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+
 
 # Crie um expander para a seção "Sobre"
 expander = st.expander("+ Informações:")
@@ -291,7 +294,10 @@ with expander:
     st.image("logo_lab.png", use_column_width=True, width=50)
     st.image("logo_usp.png", use_column_width=True, width=50)
     
-st.markdown("<br>" * 5) 
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
     
