@@ -307,7 +307,7 @@ logo_usp = Image.open("logo_usp.png")
 logo_lab = logo_lab.resize((50, 50))
 logo_usp = logo_usp.resize((50, 50))
 
-# Define o estilo para o rodapé com fundo verde oliva
+# Define o estilo para o rodapé com fundo verde musgo (#556B2F em hexadecimal)
 footer_style = """
     position: fixed;
     bottom: 0;
@@ -322,13 +322,14 @@ footer_style = """
 expander = st.expander("+ Informações:")
 with expander:
     st.write("Desenvolvido por:")
-    st.image(logo_lab, use_column_width=True, width=25)
-    st.image(logo_usp, use_column_width=True, width=20)
+    st.image(logo_lab, use_column_width=True, width=50)
+    st.image(logo_usp, use_column_width=True, width=50)
 
-
+# Aplica o estilo ao rodapé
 st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
-st.write("Versão 0.4")
 
+# Adicione a versão no rodapé
+st.write("Versão 0.4")
 
 
 
