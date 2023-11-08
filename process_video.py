@@ -79,4 +79,5 @@ def process_video(video_path,roi):
    cap.release()
 
     
-   return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
+   #return {'pCRT': pycrtvalue, 'incerteza': pycrtincert}
+   return {pycrtvalue, pycrtincert}
