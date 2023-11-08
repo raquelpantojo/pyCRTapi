@@ -192,7 +192,7 @@ if selected_option == "Calculo do CRT":
 
             # Inicialize variáveis
             detections_found = 0  # Quantas detecções encontradas
-            target_detections = 2  # Quantidade de detecções desejadas
+            target_detections = 1  # Quantidade de detecções desejadas
 
             # Abra o vídeo de saída para salvar as detecções
             frame_width = int(video_capture.get(3))
