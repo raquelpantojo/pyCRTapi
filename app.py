@@ -248,18 +248,13 @@ if selected_option == "Calculo do CRT":
                     pycrtvalue, pycrtincert= process_video(temp_filename,roi_pcrt)
                     #st.write(f"Resultados do processamento: {processed_data}")
 
-                    col1,col2 = st.columns((2))
+                    #col1,col2 = st.columns((2))
                     
                     #for pycrtvalue, pycrtincert in processed_data.items():
                                     #st.write(f"{key}: {value}")
-                    with col1:
-                        font_size = "24px"
-                        st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b></span>', unsafe_allow_html=True)
-
-                        st.write("Valor de pCRT:", pycrtvalue)
-                    with col2:
-                        st.write("Incerteza:", pycrtincert)
-                        st.write(f'<span style="font-size: 24px;">Incerteza: <b>{pycrtincert}</b></span>', unsafe_allow_html=True)
+                    #with col1:
+                    
+                    st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ±: <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
 
 
                     detections_found += 1
