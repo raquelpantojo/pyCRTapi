@@ -211,7 +211,7 @@ if selected_option == "Calculo do CRT":
 
                 # Se uma detecção foi encontrada, exiba o frame
                 if len(results.xyxy[0]) > 0:
-                    detection = results.xyxy[0][0]  # Pegue a primeira detecção
+                    detection = results.xyxy[0][9]  # Pegue a primeira detecção
                     #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     #x_min, y_min, x_max, y_max = detection[0:4]
                         
@@ -259,12 +259,6 @@ if selected_option == "Calculo do CRT":
                     with col2:
                         st.write("Incerteza:", pycrtincert)
 
-                    
-                    st.write("")  # Linha em branco para adicionar espaço
-                    st.write("")  # Linha em branco para adicionar espaço
-                    st.write("")  # Linha em branco para adicionar espaço
-                    
-
                     detections_found += 1
 
                     # Escreva o frame no vídeo de saída
@@ -282,6 +276,10 @@ else:
      st.write("Erro: Imagens de pele não foram encontradas, envie um novo vídeo")
 
 
+
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
 
 # Crie um expander para a seção "Sobre"
 expander = st.expander("+ Informações:")
