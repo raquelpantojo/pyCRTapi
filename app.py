@@ -248,6 +248,11 @@ if selected_option == "Calculo do CRT":
                     st.write("Processando vídeo...")
                     #processed_data = process_video(temp_filename,roi_pcrt)  # Processar o vídeo
                     pycrtvalue, pycrtincert= process_video(temp_filename,roi_pcrt)
+                    
+                    # Depois de obter pycrtvalue e pycrtincert
+                    if pycrtvalue > 5 and pycrtincert > 2:
+                        st.warning("Os valores do pCRT são maiores do que o esperado. \n Por favor, faça outro vídeo.")
+
                     #st.write(f"Resultados do processamento: {processed_data}")
 
                     #col1,col2 = st.columns((2))
