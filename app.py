@@ -252,16 +252,8 @@ if selected_option == "Calculo do CRT":
                     # Depois de obter pycrtvalue e pycrtincert
                     if pycrtvalue > 5 and pycrtincert > 2 and pycrtincert/pycrtvalue < 0.10:
                         st.warning("Os valores do pCRT são maiores do que o esperado. \n Por favor, faça outro vídeo.")
-
-                    #st.write(f"Resultados do processamento: {processed_data}")
-
-                    #col1,col2 = st.columns((2))
-                    
-                    #for pycrtvalue, pycrtincert in processed_data.items():
-                                    #st.write(f"{key}: {value}")
-                    #with col1:
-                    
-                    st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ± <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
+                    else
+                        st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b> ± <b>{pycrtincert}</b>  </span>', unsafe_allow_html=True)
 
 
                     detections_found += 1
@@ -297,6 +289,15 @@ with expander:
 st.write("")  # Linha em branco para adicionar espaço
 st.write("")  # Linha em branco para adicionar espaço
 st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+st.write("")  # Linha em branco para adicionar espaço
+
 
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
