@@ -292,11 +292,39 @@ st.write("")
 
 
 # Crie um expander para a seção "Sobre"
+"""
 expander = st.expander("+ Informações:")
 with expander:
     st.write("Desenvolvido por:")
     st.image("logo_lab.png", use_column_width=True, width=50)
     st.image("logo_usp.png", use_column_width=True, width=50)
+
+"""
+
+# Define o estilo para o rodapé
+footer_style = """
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+"""
+
+# Conteúdo do expander
+expander_content = """
+    <div style="text-align: center;">
+        <p>Desenvolvido por:</p>
+        <img src="logo_lab.png" width="50">
+        <img src="logo_usp.png" width="50">
+    </div>
+"""
+
+# Aplica o estilo ao rodapé
+st.markdown(f'<div style="{footer_style}">{expander_content}</div>', unsafe_allow_html=True)
+
+
 
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
