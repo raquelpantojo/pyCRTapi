@@ -60,8 +60,8 @@ def process_video(video_path,roi):
    time_values = [i / frame_rate for i in range(frame_count)]
 
    # Criar uma figura do Matplotlib
-   fig, ax = plt.subplots(figsize=(4, 3))
-
+   #fig, ax = plt.subplots(figsize=(4, 3))
+   fig, ax = plt.subplots(figsize=(3, 2), dpi=80)
    # Plote os valores médios ao longo do tempo
    ax.plot(time_values, mean_red_values, 'r', label='Canal R')
    ax.plot(time_values, mean_green_values, 'g', label='Canal G')
@@ -69,7 +69,7 @@ def process_video(video_path,roi):
 
    # Configuração do gráfico
    ax.set_xlabel('Tempo (s)')
-   ax.set_ylabel('Valores de Pixel médio')
+   ax.set_ylabel('Valores médio de Pixel')
    #ax.set_title('Valores Médios dos Canais RGB ao Longo do Tempo')
    ax.legend()
    
