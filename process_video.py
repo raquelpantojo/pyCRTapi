@@ -72,6 +72,12 @@ def process_video(video_path,roi):
    ax.set_ylabel('Valores de Pixel médio')
    #ax.set_title('Valores Médios dos Canais RGB ao Longo do Tempo')
    ax.legend()
+   
+   
+   
+   
+   
+   
 
    # Exibir o gráfico no Streamlit
    #st.pyplot(fig)
