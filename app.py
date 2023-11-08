@@ -37,8 +37,6 @@ from collections.abc import Iterable
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='finger.pt', force_reload=True,trust_repo=True)
 
 
-
-
 # Streamlit Configuration
 st.set_page_config(
     page_title="Cálculo do Tempo de Enchimento Capilar",
@@ -46,7 +44,7 @@ st.set_page_config(
 )
 
 # Set the title of your Streamlit app
-st.title("Cálculo do Tempo de Enchimento Capilar")
+st.title(" :bar_chart: Cálculo do Tempo de Enchimento Capilar")
 
 # Define a custom theme for the sidebar
 custom_sidebar = """
