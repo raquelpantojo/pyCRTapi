@@ -210,8 +210,8 @@ if selected_option == "Calculo do CRT":
                 detected_frame = results.render()[0]
 
                 # Se uma detecção foi encontrada, exiba o frame
-                if len(results.xyxy[0]) >= 5:
-                    detection = results.xyxy[0][4]  # Pegue a primeira detecção
+                if len(results.xyxy[0]) > 0:
+                    detection = results.xyxy[0][0]  # Pegue a primeira detecção
                     #xmin, ymin, xmax, ymax = detection[0:4]  # Valores x, y, largura (w) e altura (h)
                     #x_min, y_min, x_max, y_max = detection[0:4]
                         
@@ -254,10 +254,13 @@ if selected_option == "Calculo do CRT":
                                     #st.write(f"{key}: {value}")
                     with col1:
                         font_size = "24px"
-                        #st.write(f'<span style="font-size: {font_size}">Valor de pCRT: {pycrtvalue}</span>', unsafe_allow_html=True)
+                        st.write(f'<span style="font-size: 24px;">pCRT(s): <b>{pycrtvalue}</b></span>', unsafe_allow_html=True)
+
                         st.write("Valor de pCRT:", pycrtvalue)
                     with col2:
                         st.write("Incerteza:", pycrtincert)
+                        st.write(f'<span style="font-size: 24px;">Incerteza: <b>{pycrtincert}</b></span>', unsafe_allow_html=True)
+
 
                     detections_found += 1
 
