@@ -54,8 +54,8 @@ custom_sidebar = """
 """
 
 # Apply the custom theme
-st.markdown(f'<style>{custom_sidebar}</style>', unsafe_allow_html=True)
-
+#st.markdown(f'<style>{custom_sidebar}</style>', unsafe_allow_html=True)
+st.markdown(f'<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 
 
 options = ["Calculo do CRT", "Resultados"]
