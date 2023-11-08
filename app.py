@@ -249,11 +249,11 @@ if selected_option == "Calculo do CRT":
 
                     col1,col2 = st.columns((2))
                     
-                        for pycrtvalue, pycrtvalue in processed_data.items():
+                    for pycrtvalue, pycrtvalue in processed_data.items():
                                     #st.write(f"{key}: {value}")
-                            with col1:
-                                st.write("Valor de pCRT:", pycrtvalue)
-                            with col2:
+                        with col1:
+                            st.write("Valor de pCRT:", pycrtvalue)
+                        with col2:
                                 st.write("Incerteza:", pycrtvalue)
 
                     
