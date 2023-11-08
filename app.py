@@ -66,7 +66,7 @@ import streamlit as st
 
 # Define a dictionary that maps options to their corresponding icons
 options = {
-    "Calculo do CRT": "Calculo do CRT"}
+    "Calculo do CRT": " 👉 Calculo do CRT"}
 
 # Use st.selectbox to display the options with icons
 selected_option = st.sidebar.selectbox("Selecione uma opção:", list(options.keys()), format_func=lambda option: options[option], key="menu_options")
@@ -171,7 +171,7 @@ if selected_option == "Calculo do CRT":
   
 #if opcao == option1:
     #"Enviar Vídeo Existente":
-    uploaded_file = st.file_uploader("Carregar vídeo", type=["mp4", "avi", "wmv"])
+    uploaded_file = st.file_uploader(":file_folder: Carregar vídeo", type=["mp4", "avi", "wmv"])
     
     if uploaded_file is not None:
         # Verifique as imagens de pele e processe o vídeo
