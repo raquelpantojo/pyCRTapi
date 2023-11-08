@@ -248,26 +248,19 @@ if selected_option == "Calculo do CRT":
                     #st.write(f"Resultados do processamento: {processed_data}")
 
                     col1,col2 = st.columns((2))
-                    for pycrtvalue, pycrtvalue in processed_data.items():
-                                #st.write(f"{key}: {value}")
-                        with col1:
-                            st.write("Valor de pCRT:", pycrtvalue)
-                        with col2:
-                            st.write("Incerteza:", pycrtvalue)
+                    
+                        for pycrtvalue, pycrtvalue in processed_data.items():
+                                    #st.write(f"{key}: {value}")
+                            with col1:
+                                st.write("Valor de pCRT:", pycrtvalue)
+                            with col2:
+                                st.write("Incerteza:", pycrtvalue)
 
                     
                     st.write("")  # Linha em branco para adicionar espaço
                     st.write("")  # Linha em branco para adicionar espaço
                     st.write("")  # Linha em branco para adicionar espaço
                     
-                    if processed_data is not None:
-                        st.header("Resultado")
-
-                        # Create an expander to show the processed data
-                        with st.expander("Resultado do pCRT"):
-                            
-                        
-
 
                     detections_found += 1
 
