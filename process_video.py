@@ -36,7 +36,14 @@ def process_video(video_path,roi):
          break
 
       # Divida o quadro em canais RGB
-      b, g, r = cv2.split(frame)
+      #b, g, r = cv2.split(frame)
+      
+      # Aplicar a ROI ao quadro
+      x, y, w, h = roi
+      roi_frame = frame[y:y+h, x:x+w]
+
+      # Divida o quadro da ROI em canais RGB
+      b, g, r = cv2.split(roi_frame)
 
       # Calcule a média dos canais RGB e adicione à lista
       mean_red = np.mean(r)
