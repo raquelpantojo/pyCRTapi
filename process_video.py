@@ -85,7 +85,7 @@ def process_video(video_path,roi):
 
 
    # Ajuste o tamanho da figura no Streamlit
-   st.image(fig, use_column_width=True)
+   #st.image(fig, use_column_width=True)
 
 
    st.set_option('deprecation.showPyplotGlobalUse', False)
