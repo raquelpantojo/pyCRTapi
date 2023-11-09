@@ -322,9 +322,12 @@ footer_style = """
 # Aplica o estilo ao rodapé
 #st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
 
-
-
-
+st.write("")  
+st.write("") 
+st.write("")  
+st.write("") 
+st.write("")  
+st.write("") 
 st.write("")  
 st.write("")  
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
