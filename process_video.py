@@ -82,7 +82,7 @@ def process_video(video_path,roi):
    #st.pyplot(fig)
     
    # Salve o gráfico como um arquivo temporário no formato GIF
-    with BytesIO() as buffer:
+   with BytesIO() as buffer:
         plt.savefig(buffer, format="png")
         buffer.seek(0)
 
