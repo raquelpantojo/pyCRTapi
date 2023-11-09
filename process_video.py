@@ -8,6 +8,7 @@ import cv2
 from io import BytesIO
 import mpld3
 from streamlit import components
+from collections.abc import Iterable
 
 def process_video(video_path,roi):
     # Process the video using pyCRT
