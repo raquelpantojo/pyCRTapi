@@ -323,12 +323,15 @@ with expander:
 # Aplica o estilo ao rodapé
 #st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
 
-# Adicione a versão no rodapé
-st.write("pyCRTPhig Versão 0.4")
 
 
 
+st.write("")  
+st.write("")  
 st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
+# Adicione a versão no rodapé
+st.write("pyCRTPhig Versão 0.4")    
     
-    
+# Aplica o estilo ao rodapé
+st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
