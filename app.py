@@ -326,7 +326,7 @@ with expander:
     st.image(logo_usp, use_column_width=True, width=50)
 
 # Aplica o estilo ao rodapé
-st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
+#st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
 
 # Adicione a versão no rodapé
 st.write("Versão 0.4")
