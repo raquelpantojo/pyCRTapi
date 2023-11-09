@@ -79,7 +79,7 @@ def process_video(video_path,roi):
    #   buffer.seek(0)
    #   st.image(buffer, format="image/png", use_column_width=True)
    # Exibir o gráfico no Streamlit
-   st.pyplot(fig)
+   #st.pyplot(fig)
     
    # Salve o gráfico como um arquivo temporário no formato GIF
     with BytesIO() as buffer:
