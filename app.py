@@ -307,7 +307,7 @@ footer_style = """
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color:#00FF00;
+    background-color:#228B22;
     color: white;
     text-align: center;
 """
