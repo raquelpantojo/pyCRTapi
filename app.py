@@ -324,7 +324,7 @@ with expander:
 #st.markdown(f'<div style="{footer_style}">{expander}</div>', unsafe_allow_html=True)
 
 # Adicione a versão no rodapé
-st.write("Versão 0.4")
+st.write("pyCRTPhig Versão 0.4")
 
 
 
