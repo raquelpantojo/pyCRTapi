@@ -307,9 +307,8 @@ footer_style = """
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #556B2F;
+    background-color:#00FF00;
     color: white;
-    padding: 10px;
     text-align: center;
 """
 
@@ -334,4 +333,4 @@ st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest
 #st.write("pyCRTPhig Versão 0.4")    
 
 # Aplica o estilo ao rodapé
-st.markdown(f'<div style="{footer_style}">pyCRTPhig Versão 0.4:</div>', unsafe_allow_html=True)
+st.markdown(f'<div style="{footer_style}">pyCRTPhig Versão 0.4 </div>', unsafe_allow_html=True)
