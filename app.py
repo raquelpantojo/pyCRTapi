@@ -15,15 +15,14 @@ https://bgremoval.streamlit.app/
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+from process_video import process_video  
+
 import streamlit as st
 import os
 import cv2
 import numpy as np
-from process_video import process_video  # Importe a função process_video do seu módulo
-
 from PIL import Image
 from io import BytesIO
-
 from collections.abc import Iterable
 
 ## yolo v5
@@ -33,7 +32,7 @@ from collections.abc import Iterable
 
 # YOLOv5 Model Loading
 # Função para realizar a detecção da ponta do dedo
-# Carregue o modelo YOLOv5 'finger.pt' localmente
+# Carregue o modelo YOLOv5 '....pt' localmente
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='dedofrontal.pt', force_reload=True,trust_repo=True)
 
 
