@@ -80,11 +80,19 @@ def process_video(video_path,roi):
    #   st.image(buffer, format="image/png", use_column_width=True)
    # Exibir o gráfico no Streamlit
    st.pyplot(fig)
+    
+   # Salve o gráfico como um arquivo temporário no formato GIF
+    with BytesIO() as buffer:
+        plt.savefig(buffer, format="png")
+        buffer.seek(0)
+
+        # Exibir a imagem com tamanho personalizado
+        st.image(buffer, format="image/png", use_column_width=False, width=400, height=300)
+ 
     # Ajuste o tamanho da figura no Streamlit
    #st.image(fig, use_column_width=True)
-   
-   fig_html = mpld3.fig_to_html(fig)
-   components.html(fig_html, height=600)
+
+
    #st.set_option('deprecation.showPyplotGlobalUse', False)
    #st.pyplot(fig, clear_figure=True, use_container_width=True)
 
