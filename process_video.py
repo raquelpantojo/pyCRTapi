@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
+
 def process_video(video_path,roi):
     # Process the video using pyCRT
     #roi=(872, 477, 195, 205)
@@ -60,8 +61,8 @@ def process_video(video_path,roi):
    time_values = [i / frame_rate for i in range(frame_count)]
 
    # Criar uma figura do Matplotlib
-   #fig, ax = plt.subplots(figsize=(4, 3))
-   fig, ax = plt.subplots(figsize=(3, 2), dpi=80)
+   fig, ax = plt.subplots(figsize=(4, 3))
+   
    # Plote os valores médios ao longo do tempo
    ax.plot(time_values, mean_red_values, 'r', label='Canal R')
    ax.plot(time_values, mean_green_values, 'g', label='Canal G')
@@ -79,9 +80,14 @@ def process_video(video_path,roi):
    #   buffer.seek(0)
    #   st.image(buffer, format="image/png", use_column_width=True)
    # Exibir o gráfico no Streamlit
-   st.pyplot(fig)
-    # Ajuste o tamanho da figura no Streamlit
+   #st.pyplot(fig)
+    
+
+
+   # Ajuste o tamanho da figura no Streamlit
    #st.image(fig, use_column_width=True)
+
+
    st.set_option('deprecation.showPyplotGlobalUse', False)
    st.pyplot(fig, clear_figure=True, use_container_width=True)
 
