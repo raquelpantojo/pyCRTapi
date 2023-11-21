@@ -330,7 +330,7 @@ st.write("")
 st.write("") 
 st.write("")  
 st.write("")  
-st.markdown("[Visite nosso site](https://sites.usp.br/photobiomed/)")
+st.markdown("[Visite nosso site: ](https://sites.usp.br/photobiomed/)")
 st.markdown("[Informações sobre o pCRT](https://pycrt.readthedocs.io/en/latest/index.html)")
 # Adicione a versão no rodapé
 #st.write("pyCRTPhig Versão 0.4")    
