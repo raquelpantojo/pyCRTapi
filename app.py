@@ -266,7 +266,7 @@ if selected_option == "Calculo do CRT":
             st.write("Imagens de pele não foram encontradas, envie um novo vídeo")
         
 else:
-     st.write("Erro: Imagens de pele não foram encontradas, envie um novo vídeo")
+     st.write("Erro: Por favor, envie um novo vídeo")
 
 
 
